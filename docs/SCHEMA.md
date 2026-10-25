@@ -1,0 +1,69 @@
+# Контракт данных
+
+Меняем только договорившись. Поменял — поправь seed и моки фронта.
+
+## Запись идеи
+```json
+{
+  "sim_id": "s042",
+  "model": "claude-sonnet",
+  "persona": "first_years",
+  "brief": "fkn2026",
+  "title": "Алиби",
+  "theme": 2,
+  "pitch": "1–2 предложения",
+  "demo": "что показать на защите",
+  "mechanic": "фото+подпись → сверка с архивом погоды и солнцем → список противоречий"
+}
+```
+- `sim_id` — один «сосед» (одна LLM-сессия); у соседа несколько идей.
+- `mechanic` — до 15 слов «вход → что делает → выход», без названия и маркетинга.
+  По нему считаем эмбеддинги.
+- В seed (`data/seed/`) нет `pitch`/`demo`, зато есть `manual_cluster` (ручная разметка).
+
+## Файлы
+| Путь | Что |
+|---|---|
+| `data/briefs/<brief>.md` | текст задания (бриф) |
+| `data/personas.json` | персоны и тон для генератора |
+| `data/pool/<brief>.json` | список записей идей (выход генератора + нормализации) |
+| `data/cache/` | эмбеддинги, кластеры, ответы `/api/check` для заготовленных идей |
+| `data/validation/<id>.json` | реальные проекты: `[{"title": "", "tagline": "", "url": ""}]` |
+| `data/gold/pairs_to_label.csv` | 60 пар для ручной разметки |
+| `data/gold/pairs.csv` | размеченные пары, `same` ∈ {да, частично, нет} |
+
+## `GET /api/map?brief=fkn2026`
+```json
+{
+  "n_sims": 100,
+  "points": [{"x": 0.12, "y": -1.3, "cluster": 3, "sim_id": "s042", "title": "Алиби"}],
+  "clusters": [{"id": 3, "label": "солнце и погода против подписи к фото", "size_sims": 31, "share": 0.31}]
+}
+```
+
+## `POST /api/check`
+Запрос:
+```json
+{"brief": "fkn2026", "idea": "свободный текст идеи или название + суть"}
+```
+Ответ:
+```json
+{
+  "idea": {"title": "…", "mechanic": "…"},
+  "n_sims": 100,
+  "collision_sims": 9,
+  "collision_rate": 0.09,
+  "cluster": {"id": 3, "label": "…", "size_sims": 31},
+  "clones": [{"sim_id": "s042", "model": "…", "title": "…", "mechanic": "…", "similarity": 0.86}],
+  "name_matches": [{"sim_id": "s017", "title": "Алиби"}],
+  "twists": [{"title": "…", "mechanic": "…", "collision_rate": 0.01}],
+  "cached": false
+}
+```
+- `collision_sims` — сколько **соседей** дали хотя бы одну идею выше порога.
+- `twists` может быть пустым, пока поворот не готов.
+
+## Тон в `personas.json`
+- `formal` — бриф как есть.
+- `casual` — «привет, накидай идей…», короче.
+- `lowercase_short` — всё строчными, минимум слов, без персоны.
