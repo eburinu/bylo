@@ -61,9 +61,13 @@
 python -m venv .venv
 .venv\Scripts\activate          # Windows
 pip install -r requirements.txt
-uvicorn engine.api:app --reload
+uvicorn engine.api:app --reload      # web/index.html раздаётся на /
+python -m engine.llm                 # проверка ключа: каждая модель вернула JSON
+python -m engine.embed_cluster       # ARI на seed без сети
+python -m engine.generate --n 20     # дописать пул data/pool/fkn2026.json
 ```
-Если torch / sentence-transformers не ставится на Python 3.14 — venv на 3.12.
+Torch 2.14 + sentence-transformers 6.2 ставятся на Python 3.14 (CPU).
+Пока нет `data/pool/fkn2026.json`, API отдаёт seed.
 
 ## Стиль работы
 - Маленькие коммиты в свою папку, `git pull --rebase` перед `push`.
