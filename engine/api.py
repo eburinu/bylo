@@ -24,9 +24,9 @@ ROOT = Path(__file__).resolve().parent.parent
 CACHE = ROOT / "data" / "cache"
 THRESHOLD_FILE = CACHE / "threshold.json"  # пишет python -m engine.calibrate
 N_CLONES = 5
-LABEL_TOP = 20     # сколько крупнейших кластеров подписывать через LLM
+LABEL_TOP = 80     # сколько крупнейших кластеров подписывать через LLM (одним запросом)
 TWIST_CLUSTERS = 8  # сколько кластеров показывать генератору поворота
-JUDGE_TOP = int(os.getenv("JUDGE_TOP", "20"))  # сколько ближайших отдавать судье (40 — уже ~50 с с поворотом)
+JUDGE_TOP = int(os.getenv("JUDGE_TOP", "40"))  # сколько ближайших отдавать судье; 20 занижало популярные идеи
 TWIST_JUDGE_TOP = 12  # перепроверка каждого поворота
 # почти дословные механики — клон без судьи: строгий судья их иногда отбрасывает
 # (pairs.csv #58), а на косинусе ≥ 0.6 ложных клонов в разметке нет

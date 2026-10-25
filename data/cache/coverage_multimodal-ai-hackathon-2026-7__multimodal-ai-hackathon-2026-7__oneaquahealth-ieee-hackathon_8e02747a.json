@@ -5,27 +5,32 @@
  "n_projects": 744,
  "normalized": true,
  "threshold": 0.41,
- "n_sims": 17,
+ "n_sims": 39,
  "reps": 50,
- "coverage": 0.132,
- "coverage_std": 0.012,
- "control_coverage": 0.011,
- "control_std": 0.0,
+ "coverage": 0.196,
+ "coverage_std": 0.0,
+ "control_coverage": 0.037,
+ "control_std": 0.004,
  "curve": [
   {
    "n_sims": 5,
-   "pool": 0.063,
-   "control": 0.004
+   "pool": 0.062,
+   "control": 0.007
   },
   {
    "n_sims": 10,
    "pool": 0.105,
-   "control": 0.006
+   "control": 0.01
   },
   {
-   "n_sims": 17,
-   "pool": 0.132,
-   "control": 0.011
+   "n_sims": 20,
+   "pool": 0.147,
+   "control": 0.02
+  },
+  {
+   "n_sims": 39,
+   "pool": 0.196,
+   "control": 0.037
   }
  ]
 }

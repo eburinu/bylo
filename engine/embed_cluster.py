@@ -92,7 +92,7 @@ async def label_clusters(ideas: list[dict], labels: np.ndarray, top: int, emb: n
     blocks = "\n\n".join(f"Кластер {c}:\n" + "\n".join(f"- {m}" for m in members[c][:8]) for c in biggest)
     try:
         r = await llm.complete_json(llm.UTIL_MODEL, llm.prompt("label", clusters=blocks),
-                                    temperature=0, max_tokens=60 * len(biggest))
+                                    temperature=0, max_tokens=min(8000, 60 * len(biggest)))
         for k, v in (r.get("labels", {}) if isinstance(r, dict) else {}).items():
             if str(k).strip().isdigit() and int(k) in members and str(v).strip():
                 out[int(k)] = str(v).strip(" «»\"'.\n")
