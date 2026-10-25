@@ -15,7 +15,7 @@ from engine import llm, normalize
 ROOT = Path(__file__).resolve().parent.parent
 POOL = ROOT / "data" / "pool"
 TONE_PROMPT = {"formal": "generator", "casual": "generator_casual", "lowercase_short": "generator_short"}
-INLINE_MECHANIC = ('\n\nДобавь каждой идее поле "mechanic": механика одной фразой до 15 слов '
+INLINE_MECHANIC = ('\n\nДобавь каждой идее поле "mechanic": механика одной фразой до 15 слов по-русски '
                    '«что на входе → что делает → что на выходе», без названия и маркетинга.')
 
 
