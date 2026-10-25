@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Было</title>
+<!-- Без внешних библиотек и шрифтов: демо не зависит от сети (инвариант 5) -->
+<style>
+  :root {
+    --paper: #f3efe6; --card: #fbf9f4; --ink: #1d1b16; --muted: #75706a; --faint: #a8a299; --line: #ddd6c8;
+    --stamp: #c4122f; --ok: #2f7d4a; --cell: #e4ddcf; --accent: #1d1b16;
+    --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #131210; --card: #1b1a17; --ink: #ede8de; --muted: #9c968b; --faint: #6a655d; --line: #2f2c27;
+      --stamp: #ff5a6e; --ok: #5fd08a; --cell: #2a2824; --accent: #ede8de;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #131210; --card: #1b1a17; --ink: #ede8de; --muted: #9c968b; --faint: #6a655d; --line: #2f2c27;
+    --stamp: #ff5a6e; --ok: #5fd08a; --cell: #2a2824; --accent: #ede8de;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.5 var(--sans); }
+  main { max-width: 920px; margin: 0 auto; padding: 32px 16px 72px; }
+  button { font: inherit; cursor: pointer; }
+  .muted { color: var(--muted); }
+  .small { font-size: 14px; }
+
+  /* шапка */
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 40px; }
+  .brand { font: 600 15px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; }
+  .brand b { display: inline-block; border: 2px solid currentColor; padding: 4px 7px 3px; margin-right: 8px; transform: rotate(-4deg); color: var(--stamp); }
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .pill { font-size: 12px; padding: 3px 9px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+  .pill.warn { border-color: var(--stamp); color: var(--stamp); }
+
+  /* герой */
+  h1 { font: 400 clamp(40px, 7vw, 68px)/1.02 var(--serif); letter-spacing: -.02em; margin: 0 0 16px; max-width: 13em; }
+  h1 em { font-style: italic; color: var(--stamp); }
+  .lead { font-size: clamp(16px, 2.2vw, 19px); color: var(--muted); max-width: 36em; margin: 0 0 28px; }
+
+  .ask { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 8px; }
+  .ask textarea { display: block; width: 100%; min-height: 92px; resize: vertical; border: 0; background: transparent;
+                  color: inherit; font: 18px/1.45 var(--sans); padding: 12px 14px; }
+  .ask textarea:focus { outline: none; }
+  .ask:focus-within { border-color: var(--ink); }
+  .askbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 6px 6px 14px; flex-wrap: wrap; }
+  .go { border: 0; border-radius: 12px; padding: 12px 22px; background: var(--accent); color: var(--paper); font-weight: 600; }
+  .go:disabled { opacity: .45; cursor: progress; }
+  .examples { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; align-items: center; }
+  .chip { background: transparent; border: 1px solid var(--line); color: var(--muted); border-radius: 99px; padding: 5px 12px; font-size: 14px; }
+  .chip:hover { color: var(--ink); border-color: var(--muted); }
+
+  /* секции */
+  section.block { margin-top: 56px; }
+  .eyebrow { display: flex; align-items: baseline; gap: 10px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+             color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 22px; }
+  .eyebrow span { font-family: var(--serif); letter-spacing: 0; text-transform: none; color: var(--faint); }
+
+  /* вердикт */
+  .verdict { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 36px; align-items: start; }
+  .grid100 { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; aspect-ratio: 1; }
+  .grid100 i { border-radius: 3px; background: var(--cell); transition: background .25s; }
+  .grid100 i.on { background: var(--stamp); }
+  .grid100.thinking i { animation: think 1.4s ease-in-out infinite; }
+  @keyframes think { 50% { background: var(--faint); } }
+  .gridcap { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .headline { position: relative; }
+  .num { font: 400 clamp(72px, 13vw, 120px)/.9 var(--serif); letter-spacing: -.04em; }
+  .num small { font-size: .32em; letter-spacing: 0; color: var(--muted); margin-left: 6px; }
+  .say { font: 400 clamp(20px, 3vw, 26px)/1.3 var(--serif); margin: 10px 0 14px; max-width: 22em; }
+  .stamp { position: absolute; right: 0; top: 4px; border: 3px solid var(--stamp); color: var(--stamp); border-radius: 6px;
+           padding: 6px 14px 4px; font: 700 clamp(22px, 4vw, 34px)/1 var(--sans); letter-spacing: .14em;
+           transform: rotate(-9deg); opacity: .9; mix-blend-mode: multiply; }
+  .stamp.fresh { border-color: var(--ok); color: var(--ok); }
+  @media (prefers-color-scheme: dark) { .stamp { mix-blend-mode: normal; } }
+  .stamp.anim { animation: stamp .35s cubic-bezier(.2, 1.4, .4, 1) both; }
+  @keyframes stamp { from { transform: rotate(-9deg) scale(1.8); opacity: 0; } }
+  .facts { display: grid; gap: 6px; font-size: 15px; }
+  .facts q { quotes: "«" "»"; }
+  .why { margin-top: 14px; font-size: 13px; color: var(--faint); }
+
+  /* клоны и повороты */
+  .two { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 36px; margin-top: 44px; }
+  h3 { font: 400 22px/1.2 var(--serif); margin: 0 0 14px; }
+  ol.clones { list-style: none; margin: 0; padding: 0; counter-reset: c; }
+  ol.clones li { position: relative; padding: 14px 0 14px 34px; border-top: 1px solid var(--line); counter-increment: c; }
+  ol.clones li::before { content: counter(c); position: absolute; left: 0; top: 14px; font: 400 20px/1 var(--serif); color: var(--faint); }
+  .ct { font-weight: 600; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+         padding: 2px 7px; border-radius: 4px; margin-left: 8px; vertical-align: 2px; }
+  .tag.clone { background: var(--stamp); color: var(--paper); }
+  .tag.near { border: 1px solid var(--line); color: var(--muted); font-weight: 500; }
+  .cm { font-size: 14px; color: var(--muted); margin: 2px 0 6px; }
+  .meta { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--faint); }
+  .bar { flex: 0 0 90px; height: 3px; background: var(--cell); border-radius: 9px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--faint); }
+  li.hit .bar i { background: var(--stamp); }
+  .twist { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; }
+  .twist .tt { font: 400 19px/1.25 var(--serif); }
+  .twist .cm { margin: 4px 0 8px; }
+  .score { font-size: 13px; color: var(--ok); font-weight: 600; }
+  .namehit { background: var(--card); border: 1px dashed var(--stamp); border-radius: 12px; padding: 12px 14px; margin-top: 18px; font-size: 15px; }
+  .empty { color: var(--muted); font-size: 15px; }
+
+  /* карта */
+  .mapcard { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 12px; position: relative; }
+  svg.map { display: block; width: 100%; height: auto; touch-action: manipulation; }
+  svg.map circle { cursor: pointer; }
+  svg.map circle.dim { opacity: .18; }
+  svg.map circle.hit { stroke: var(--ink); stroke-width: 2.5; }
+  .tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--paper); font-size: 13px; line-height: 1.35;
+         padding: 7px 10px; border-radius: 8px; max-width: 260px; display: none; z-index: 2; }
+  .legend { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 28px; }
+  .legend li { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 10px; align-items: center; cursor: pointer;
+               padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .legend li.on .lbl { font-weight: 600; }
+  .legend .sw { width: 10px; height: 10px; border-radius: 50%; }
+  .lbl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .legend .n { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; }
+  .more { background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 10px 0 0; font-size: 14px; }
+
+  /* как считаем */
+  .how { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .how div { font-size: 14px; color: var(--muted); }
+  .how b { display: block; font: 400 19px/1.25 var(--serif); color: var(--ink); margin-bottom: 6px; }
+  .error { color: var(--stamp); }
+
+  @media (max-width: 720px) {
+    main { padding-top: 20px; }
+    .top { margin-bottom: 28px; }
+    .brand .sub { display: none; }
+    .verdict, .two, .how { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .verdict .grid100 { max-width: 220px; }
+    .legend { grid-template-columns: minmax(0, 1fr); }
+    .stamp { position: static; display: inline-block; margin-bottom: 12px; }
+    section.block { margin-top: 44px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stamp.anim, .grid100.thinking i { animation: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div class="brand"><b>Было</b><span class="sub">антиплагиат идей</span></div>
+    <div class="pills">
+      <span class="pill" id="briefBadge">fkn2026</span>
+      <span class="pill warn" id="mockBadge" hidden title="GitHub Pages: карта и примеры — настоящие, новые идеи сравниваются по словам">статическая версия</span>
+    </div>
+  </div>
+
+  <h1>Вашу идею уже <em>придумали</em>?</h1>
+  <p class="lead">Мы дали то же задание сотне ИИ-«соседей» — разным моделям с разными командами — и собрали их идеи.
+    Опишите свою и узнайте, сколько команд пришли бы к ней же и как из этой толпы выйти.</p>
+
+  <div class="ask">
+    <textarea id="idea" placeholder="Название и суть: что на входе, что делает, что на выходе"></textarea>
+    <div class="askbar">
+      <span class="small muted" id="status">Ctrl + Enter — проверить</span>
+      <button class="go" id="go">Проверить идею</button>
+    </div>
+  </div>
+  <div class="examples" id="examples"></div>
+
+  <section class="block" id="verdictBlock" hidden>
+    <div class="eyebrow">Вердикт <span id="verdictNote"></span></div>
+    <div class="verdict">
+      <div>
+        <div class="grid100" id="grid100" aria-hidden="true"></div>
+        <div class="gridcap" id="gridcap"></div>
+      </div>
+      <div class="headline" id="headline"></div>
+    </div>
+    <div class="two" id="details"></div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">Карта идей соседей <span id="mapNote"></span></div>
+    <div class="mapcard">
+      <p class="small muted" id="mapHint" style="margin:4px 6px 0">Загружаю карту…</p>
+      <svg class="map" id="map" role="img" aria-label="Карта идей: точки — идеи соседей, цвет — кластер"></svg>
+      <div class="tip" id="tip"></div>
+    </div>
+    <ul class="legend" id="legend"></ul>
+    <button class="more" id="moreClusters" hidden>Показать все кластеры</button>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">Как считаем</div>
+    <div class="how">
+      <div><b>Сто соседей</b>Одно задание, разные модели, персоны и формулировки. Каждый сосед — независимая сессия, у каждого несколько идей.</div>
+      <div><b>По механике, не по словам</b>Каждую идею сжимаем до «вход → что делает → выход». Название сравниваем отдельно.</div>
+      <div><b>«Та же идея» — по разметке</b>Порог откалиброван на парах, размеченных людьми. Поворот показываем, только если он перепроверен по пулу.</div>
+    </div>
+  </section>
+</main>
+
+<script src="mock.js"></script>
+<script>
+const params = new URLSearchParams(location.search);
+const BRIEF = params.get("brief") || "fkn2026";
+const EXAMPLES = [
+  "Алиби: по фото и подписи сверяем тени с положением солнца и архивом погоды, выдаём список противоречий",
+  "Агент проходит README проекта в чистом Docker и присылает PR с исправленной инструкцией",
+  "Второй мозг для семьи: бот собирает рецепты, чеки и напоминания из чата и отвечает на вопросы",
+  "Детектор дипфейков: загружаешь видео, нейросеть ищет артефакты и выдаёт вероятность подделки",
+  "AR-гид по кампусу: наводишь камеру, получаешь подсказки, куда идти и что делать новичку",
+  "Проверка что на видеозвонке живой человек: случайный челлендж мимикой и подписанный токен",
+  "Второй мозг: заметки и документы индексируются, по вопросу находим связанный контекст со ссылками",
+  "Было: генерируем сотню ИИ-соседей с тем же заданием и показываем, сколько из них придумали вашу идею"
+];
+const PALETTE = ["#c4122f", "#2b59c3", "#2f7d4a", "#b5651d", "#7b3fa0", "#138a8a", "#c79a00", "#5b6b2f"];
+const CLUSTERS_SHOWN = 8;
+
+const $ = id => document.getElementById(id);
+let MAP = null, MOCK = false, selected = null, hits = new Set(), showAll = false;
+
+function plural(n, one, few, many) {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+  return many;
+}
+// механика иногда начинается с того же названия («Проверка подлинности: …») — не повторяем его
+function dropTitle(mechanic, title) {
+  const m = (mechanic || "").trim(), t = (title || "").trim();
+  if (!t || !m.toLowerCase().startsWith(t.toLowerCase())) return m;
+  const rest = m.slice(t.length).replace(/^[\s:—–-]+/, "");
+  return rest ? rest[0].toUpperCase() + rest.slice(1) : m;
+}
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+}
+const per100 = rate => Math.round(rate * 100);
+const pointKey = p => `${p.sim_id}\u0000${p.title}`;
+// клон решает судья (c.match); старый ответ без match — по порогу косинуса
+const isClone = (c, r) => c.match ?? (c.similarity >= r.threshold);
+
+function colorOf(cluster) {
+  const i = MAP ? MAP.clusters.findIndex(c => c.id === cluster) : -1;
+  return i >= 0 && i < PALETTE.length ? PALETTE[i] : "var(--faint)";
+}
+
+/* ---------- сетка «100 команд» ---------- */
+
+$("grid100").innerHTML = "<i></i>".repeat(100);
+function fillGrid(n) {
+  const cells = $("grid100").children;
+  for (let i = 0; i < 100; i++) cells[i].classList.toggle("on", i < n);
+}
+function thinkGrid(on) {
+  const g = $("grid100");
+  g.classList.toggle("thinking", on);
+  if (on) [...g.children].forEach(c => { c.classList.remove("on"); c.style.animationDelay = (Math.random() * 1.4).toFixed(2) + "s"; });
+}
+
+/* ---------- карта ---------- */
+
+async function loadMap() {
+  try {
+    const r = await fetch(`/api/map?brief=${encodeURIComponent(BRIEF)}`);
+    if (!r.ok) throw new Error(await r.text());
+    MAP = await r.json();
+  } catch (e) {
+    if (!window.MOCK_MAP) { $("mapHint").textContent = "Карта не загрузилась: " + e.message; $("mapHint").classList.add("error"); return; }
+    MAP = window.MOCK_MAP; MOCK = true; $("mockBadge").hidden = false;
+  }
+  $("mapNote").textContent = `${MAP.points.length} ${plural(MAP.points.length, "идея", "идеи", "идей")} · ${MAP.n_sims} ${plural(MAP.n_sims, "сосед", "соседа", "соседей")}`;
+  $("mapHint").textContent = "Точка — идея соседа, цвет — кластер одинаковых механик. Нажмите на кластер, чтобы выделить его.";
+  drawMap(); drawLegend();
+}
+
+function drawMap() {
+  const svg = $("map"), W = 800, H = window.innerWidth < 720 ? 760 : 420, pad = 20;
+  const xs = MAP.points.map(p => p.x), ys = MAP.points.map(p => p.y);
+  const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+  const sx = x => pad + (x - x0) / ((x1 - x0) || 1) * (W - 2 * pad);
+  const sy = y => H - pad - (y - y0) / ((y1 - y0) || 1) * (H - 2 * pad);
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const r = window.innerWidth < 720 ? 11 : 7;
+  const order = MAP.points.map((p, i) => i).sort((a, b) => {
+    const pa = MAP.points[a], pb = MAP.points[b];
+    return (hits.has(pointKey(pa)) - hits.has(pointKey(pb))) || ((colorOf(pa.cluster) === "var(--faint)") ? -1 : 1);
+  });
+  svg.innerHTML = order.map(i => {
+    const p = MAP.points[i], hit = hits.has(pointKey(p));
+    const dim = selected !== null ? p.cluster !== selected : hits.size > 0 && !hit;
+    return `<circle cx="${sx(p.x).toFixed(1)}" cy="${sy(p.y).toFixed(1)}" r="${hit ? r + 3 : r}" fill="${colorOf(p.cluster)}"
+      class="${dim ? "dim" : ""} ${hit ? "hit" : ""}" data-i="${i}"></circle>`;
+  }).join("");
+}
+
+function showTip(ev) {
+  const c = ev.target.closest("circle"), tip = $("tip");
+  if (!c) { tip.style.display = "none"; return; }
+  const p = MAP.points[+c.dataset.i];
+  const cl = MAP.clusters.find(k => k.id === p.cluster);
+  tip.innerHTML = `<b>${esc(p.title)}</b><br>${esc(cl?.label || "")}<br><span style="opacity:.65">сосед ${esc(p.sim_id)}</span>`;
+  const box = $("map").parentElement.getBoundingClientRect(), cb = c.getBoundingClientRect();
+  tip.style.display = "block";
+  tip.style.left = Math.max(8, Math.min(cb.left - box.left + 14, box.width - tip.offsetWidth - 8)) + "px";
+  tip.style.top = Math.max(8, cb.top - box.top - tip.offsetHeight - 8) + "px";
+}
+$("map").addEventListener("mousemove", showTip);
+$("map").addEventListener("click", showTip);
+$("map").addEventListener("mouseleave", () => $("tip").style.display = "none");
+
+function drawLegend() {
+  const list = showAll ? MAP.clusters : MAP.clusters.slice(0, CLUSTERS_SHOWN);
+  $("legend").innerHTML = list.map(c => `
+    <li data-id="${c.id}" class="${selected === c.id ? "on" : ""}" title="${esc(c.label)}">
+      <span class="sw" style="background:${colorOf(c.id)}"></span>
+      <span class="lbl">${esc(c.label || "кластер " + c.id)}</span>
+      <span class="n">${c.size_sims} из ${MAP.n_sims}</span>
+    </li>`).join("");
+  $("moreClusters").hidden = showAll || MAP.clusters.length <= CLUSTERS_SHOWN;
+}
+$("legend").addEventListener("click", ev => {
+  const li = ev.target.closest("li"); if (!li) return;
+  const id = +li.dataset.id;
+  selected = selected === id ? null : id;
+  drawMap(); drawLegend();
+});
+$("moreClusters").addEventListener("click", () => { showAll = true; drawLegend(); });
+
+/* ---------- проверка идеи ---------- */
+
+async function check() {
+  const text = $("idea").value.trim();
+  if (!text) { $("idea").focus(); return; }
+  const btn = $("go"), status = $("status"), t0 = Date.now();
+  btn.disabled = true;
+  $("verdictBlock").hidden = false;
+  $("headline").innerHTML = `<p class="say muted">Спрашиваю соседей…</p>`;
+  $("details").innerHTML = ""; $("gridcap").textContent = ""; $("verdictNote").textContent = "";
+  thinkGrid(true);
+  const tick = () => { status.textContent = `считаю… ${Math.round((Date.now() - t0) / 1000)} с`; };
+  tick(); const timer = setInterval(tick, 1000);
+  try {
+    let res;
+    if (MOCK) { await new Promise(r => setTimeout(r, 600)); res = (window.MOCK_CHECKS || {})[text.toLowerCase().split(/\s+/).join(" ")] || mockCheck(text); }
+    else {
+      const r = await fetch("/api/check", {method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({brief: BRIEF, idea: text})});
+      if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || r.statusText);
+      res = await r.json();
+    }
+    status.textContent = res.cached ? "готово · из кэша" : `готово за ${Math.round((Date.now() - t0) / 1000)} с`;
+    renderVerdict(res);
+  } catch (e) {
+    thinkGrid(false);
+    $("headline").innerHTML = `<p class="say error">Не получилось: ${esc(e.message)}</p>`;
+    status.textContent = "ошибка";
+  } finally {
+    clearInterval(timer); btn.disabled = false;
+  }
+}
+$("go").addEventListener("click", check);
+$("idea").addEventListener("keydown", e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) check(); });
+
+function renderVerdict(r) {
+  const n = per100(r.collision_rate);
+  thinkGrid(false); fillGrid(n);
+  $("gridcap").textContent = `каждая клетка — одна команда из 100`;
+  $("verdictNote").textContent = MOCK && !r.judged ? "статическая версия · сравнение по словам — для настоящей проверки запустите сервер"
+    : r.judged === false ? "без сети · по порогу похожести" : r.judged ? "клонов отбирал судья-LLM" : "";
+
+  const fresh = r.collision_sims === 0;
+  const say = fresh
+    ? "Ни один сосед не пришёл к этой идее. Похоже, это действительно своё."
+    : `${plural(n, "команда", "команды", "команд")} с тем же заданием ${n === 1 ? "придумала" : "придумали"} бы то же, что и вы.`;
+  $("headline").innerHTML = `
+    <span class="stamp anim ${fresh ? "fresh" : ""}">${fresh ? "НЕ БЫЛО" : "БЫЛО"}</span>
+    <div class="num">${n}<small>/ 100</small></div>
+    <p class="say">${say}</p>
+    <div class="facts">
+      <span class="muted">${r.collision_sims} из ${r.n_sims} ${plural(r.n_sims, "соседа", "соседей", "соседей")} дали ту же механику${r.n_sims < 100 ? " — пересчитано на 100" : ""}</span>
+      ${r.cluster ? `<span>Кластер: <q>${esc(r.cluster.label)}</q> — там ${r.cluster.size_sims} из ${r.n_sims}</span>` : ""}
+    </div>
+    <p class="why">Мы поняли идею так: <b>${esc(r.idea.title)}</b> — ${esc(dropTitle(r.idea.mechanic, r.idea.title))}</p>`;
+
+  const clones = r.clones.map(c => {
+    const hit = isClone(c, r);
+    const w = Math.max(4, Math.min(1, c.similarity / Math.max(r.threshold * 2, 0.01)) * 100);
+    return `<li class="${hit ? "hit" : ""}">
+      <div><span class="ct">${esc(c.title)}</span><span class="tag ${hit ? "clone" : "near"}">${hit ? "клон" : "рядом"}</span></div>
+      <div class="cm">${esc(c.mechanic)}</div>
+      <div class="meta"><span class="bar"><i style="width:${w}%"></i></span><span>${esc(c.model)} · сосед ${esc(c.sim_id)} · ${c.similarity.toFixed(2)}</span></div>
+    </li>`;
+  }).join("");
+
+  const names = r.name_matches.length
+    ? `<div class="namehit">Название «${esc(r.idea.title)}» уже занято: у ${r.name_matches.length} ${plural(r.name_matches.length, "соседа", "соседей", "соседей")} —
+       ${r.name_matches.map(m => `«${esc(m.title)}»`).join(", ")}.</div>` : "";
+
+  let twists;
+  if (r.twists.length) {
+    twists = r.twists.map(t => `<div class="twist"><div class="tt">${esc(t.title)}</div><div class="cm">${esc(t.mechanic)}</div>
+      <div class="score">→ придумали бы ${per100(t.collision_rate)} из 100</div></div>`).join("");
+  } else if (fresh) {
+    twists = `<p class="empty">Поворот не нужен: идея и так вне кластеров.</p>`;
+  } else {
+    twists = `<p class="empty">${MOCK ? "Поворот считается только на сервере." :
+      "Поворота нет: сервер без ключа LLM или ни один вариант не прошёл перепроверку по пулу."}</p>`;
+  }
+
+  $("details").innerHTML = `
+    <div><h3>Ближайшие соседи</h3><ol class="clones">${clones}</ol>${names}</div>
+    <div><h3>Поворот из толпы</h3>${twists}</div>`;
+
+  hits = new Set(r.clones.filter(c => isClone(c, r)).map(pointKey));
+  selected = null;
+  if (MAP) { drawMap(); drawLegend(); }
+  $("verdictBlock").scrollIntoView({behavior: "smooth", block: "start"});
+}
+
+/* ---------- демо без сервера: грубое сравнение по словам, только чтобы показать интерфейс ---------- */
+
+function words(s) {
+  return new Set(s.toLowerCase().replace(/ё/g, "е").split(/[^a-zа-я0-9]+/).filter(w => w.length > 3).map(w => w.slice(0, 5)));
+}
+function mockCheck(text) {
+  const ideas = window.MOCK_IDEAS, mine = words(text), thr = 0.12;
+  const sim = i => { const o = words(i.title + " " + i.mechanic); let k = 0; mine.forEach(w => k += o.has(w)); return k / (mine.size + o.size - k || 1); };
+  const scored = ideas.map(i => ({...i, similarity: +sim(i).toFixed(3)})).sort((a, b) => b.similarity - a.similarity);
+  const hitSims = new Set(scored.filter(i => i.similarity >= thr).map(i => i.sim_id));
+  const seen = new Set(), clones = [];
+  for (const i of scored) { if (seen.has(i.sim_id)) continue; seen.add(i.sim_id); clones.push(i); if (clones.length === 5) break; }
+  const top = scored[0], cl = MAP.clusters.find(c => c.id === top.cluster);
+  const title = text.split(/[.:—\n]/)[0].slice(0, 40).trim();
+  return {
+    idea: {title, mechanic: text}, n_sims: MAP.n_sims, collision_sims: hitSims.size,
+    collision_rate: +(hitSims.size / MAP.n_sims).toFixed(3),
+    cluster: hitSims.size ? {id: cl.id, label: cl.label, size_sims: cl.size_sims} : null,
+    clones: clones.map(({sim_id, model, title, mechanic, similarity}) => ({sim_id, model, title, mechanic, similarity, match: similarity >= thr})),
+    name_matches: ideas.filter(i => i.title.toLowerCase() === title.toLowerCase()).map(({sim_id, title}) => ({sim_id, title})),
+    twists: [], threshold: thr, judged: false, cached: false,
+  };
+}
+
+$("briefBadge").textContent = "бриф: " + BRIEF;
+$("examples").innerHTML = `<span class="small muted">Попробуйте:</span>` +
+  EXAMPLES.map((e, i) => `<button class="chip" data-i="${i}">${esc(e.includes(":") ? e.split(":")[0] : e.slice(0, 30) + "…")}</button>`).join("");
+$("examples").addEventListener("click", ev => {
+  const b = ev.target.closest(".chip"); if (!b) return;
+  $("idea").value = EXAMPLES[+b.dataset.i]; check();
+});
+let resizeT;
+addEventListener("resize", () => { clearTimeout(resizeT); resizeT = setTimeout(() => MAP && drawMap(), 150); });
+loadMap();
+</script>
+</body>
+</html>
