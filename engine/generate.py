@@ -15,6 +15,8 @@ from engine import llm, normalize
 ROOT = Path(__file__).resolve().parent.parent
 POOL = ROOT / "data" / "pool"
 TONE_PROMPT = {"formal": "generator", "casual": "generator_casual", "lowercase_short": "generator_short"}
+INLINE_MECHANIC = ('\n\nДобавь каждой идее поле "mechanic": механика одной фразой до 15 слов '
+                   '«что на входе → что делает → что на выходе», без названия и маркетинга.')
 
 
 def load_pool(brief: str) -> list[dict]:
@@ -43,8 +45,9 @@ def brief_prompt(brief_text: str, persona: dict, k: int) -> str:
     return llm.prompt(TONE_PROMPT[tone], persona=persona["text"], brief=text, k=k).strip()
 
 
-async def one_sim(sim_id, model, persona, brief, brief_text, k) -> list[dict]:
-    r = await llm.complete_json(model, brief_prompt(brief_text, persona, k), temperature=1.0, max_tokens=2500)
+async def one_sim(sim_id, model, persona, brief, brief_text, k, inline=False) -> list[dict]:
+    text = brief_prompt(brief_text, persona, k) + (INLINE_MECHANIC if inline else "")
+    r = await llm.complete_json(model, text, temperature=1.0, max_tokens=3000)
     raw = r.get("ideas", []) if isinstance(r, dict) else r
     ideas = []
     for x in raw[:k]:
@@ -56,14 +59,16 @@ async def one_sim(sim_id, model, persona, brief, brief_text, k) -> list[dict]:
             theme = 0
         ideas.append({"sim_id": sim_id, "model": model, "persona": persona["id"], "brief": brief,
                       "title": str(x["title"]).strip(), "theme": theme,
-                      "pitch": str(x.get("pitch", "")).strip(), "demo": str(x.get("demo", "")).strip()})
-    mechs = await asyncio.gather(*(normalize.mechanic(i["title"], i["pitch"]) for i in ideas))
-    for i, m in zip(ideas, mechs):
+                      "pitch": str(x.get("pitch", "")).strip(), "demo": str(x.get("demo", "")).strip(),
+                      "mechanic": str(x.get("mechanic", "")).strip() if inline else ""})
+    todo = [i for i in ideas if not i["mechanic"]]
+    mechs = await asyncio.gather(*(normalize.mechanic(i["title"], i["pitch"]) for i in todo))
+    for i, m in zip(todo, mechs):
         i["mechanic"] = m
     return ideas
 
 
-async def run(brief: str, n: int, k: int):
+async def run(brief: str, n: int, k: int, inline: bool = False):
     brief_text = (ROOT / "data" / "briefs" / f"{brief}.md").read_text(encoding="utf-8").strip()
     personas = json.loads((ROOT / "data" / "personas.json").read_text(encoding="utf-8"))
     if not llm.MODELS:
@@ -78,7 +83,7 @@ async def run(brief: str, n: int, k: int):
     async def worker(sim_id, model, persona):
         nonlocal failed
         try:
-            ideas = await one_sim(sim_id, model, persona, brief, brief_text, k)
+            ideas = await one_sim(sim_id, model, persona, brief, brief_text, k, inline)
         except Exception as e:  # noqa: BLE001 — один упавший сосед не валит прогон
             failed += 1
             print(f"FAIL {sim_id} {model} {persona['id']}: {type(e).__name__}: {str(e)[:120]}")
@@ -97,5 +102,7 @@ if __name__ == "__main__":
     ap.add_argument("--brief", default="fkn2026")
     ap.add_argument("--n", type=int, default=20, help="сколько соседей должно быть в пуле")
     ap.add_argument("--k", type=int, default=5, help="идей на соседа")
+    ap.add_argument("--inline", action="store_true",
+                    help="механику пишет сам генератор: 1 запрос на соседа (для бесплатных моделей)")
     a = ap.parse_args()
-    asyncio.run(run(a.brief, a.n, a.k))
+    asyncio.run(run(a.brief, a.n, a.k, a.inline))

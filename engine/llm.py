@@ -19,7 +19,7 @@ load_dotenv(ROOT / ".env")
 MODELS = [m.strip() for m in os.getenv("LLM_MODELS", "").split(",") if m.strip()]
 UTIL_MODEL = os.getenv("LLM_UTIL_MODEL", "").strip() or (MODELS[0] if MODELS else "")
 CONCURRENCY = int(os.getenv("LLM_CONCURRENCY", "12"))
-RETRIES = 5
+RETRIES = int(os.getenv("LLM_RETRIES", "4"))  # на бесплатных моделях повтор ест дневной лимит
 
 _client: AsyncOpenAI | None = None
 _sems: dict[int, asyncio.Semaphore] = {}  # семафор на event loop: asyncio.run можно звать много раз
@@ -51,7 +51,7 @@ def prompt(name: str, **kw) -> str:
 
 
 async def chat(model: str, messages: list[dict], temperature: float = 1.0, max_tokens: int = 2000) -> str:
-    for attempt in range(RETRIES):
+    for attempt in range(RETRIES + 1):  # первая попытка + RETRIES повторов
         try:
             async with _sem():
                 r = await client().chat.completions.create(
@@ -66,7 +66,8 @@ async def chat(model: str, messages: list[dict], temperature: float = 1.0, max_t
             err = e
         except (APIConnectionError, APITimeoutError) as e:
             err = e
-        await asyncio.sleep(min(30, 2 ** attempt + random.random()))
+        if attempt < RETRIES:
+            await asyncio.sleep(min(30, 2 ** attempt + random.random()))
     raise err
 
 

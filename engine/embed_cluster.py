@@ -3,7 +3,6 @@
 Проверка на seed без сети: python -m engine.embed_cluster
 (ARI с manual_cluster при разных порогах; ниже ~0.4 — что-то сломано).
 """
-import asyncio
 import hashlib
 import json
 import os
@@ -84,14 +83,16 @@ async def label_clusters(ideas: list[dict], labels: np.ndarray, top: int) -> dic
     if not llm.UTIL_MODEL or not os.getenv("LLM_API_KEY"):
         return out
 
-    async def one(c):
-        text = llm.prompt("label", mechanics="\n".join(f"- {m}" for m in members[c][:12]))
-        try:
-            out[c] = (await llm.complete(llm.UTIL_MODEL, text, temperature=0, max_tokens=40)).strip(" «»\"'.\n")
-        except Exception:  # noqa: BLE001 — подпись не критична, остаётся механика
-            pass
-
-    await asyncio.gather(*(one(c) for c in biggest))
+    # один запрос на все кластеры: дешевле и не ест лимит бесплатных моделей
+    blocks = "\n\n".join(f"Кластер {c}:\n" + "\n".join(f"- {m}" for m in members[c][:8]) for c in biggest)
+    try:
+        r = await llm.complete_json(llm.UTIL_MODEL, llm.prompt("label", clusters=blocks),
+                                    temperature=0, max_tokens=60 * len(biggest))
+        for k, v in (r.get("labels", {}) if isinstance(r, dict) else {}).items():
+            if str(k).strip().isdigit() and int(k) in members and str(v).strip():
+                out[int(k)] = str(v).strip(" «»\"'.\n")
+    except Exception:  # noqa: BLE001 — подпись не критична, остаётся механика
+        pass
     return out
 
 

@@ -62,7 +62,7 @@ class Space:
     async def matches(self, mechanic: str, s: np.ndarray, online: bool) -> set[int]:
         """Номера идей пула, которые «та же идея». Онлайн — судья по JUDGE_TOP ближайшим,
         офлайн — порог по косинусу."""
-        if not online:
+        if not online or JUDGE_TOP == 0:
             return {int(j) for j in np.nonzero(s >= threshold())[0]}
         cand = [int(j) for j in np.argsort(-s)[:JUDGE_TOP]]
         verdicts = await judge.many(mechanic, [self.ideas[j]["mechanic"] for j in cand])
