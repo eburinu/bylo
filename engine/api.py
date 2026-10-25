@@ -138,6 +138,19 @@ app = FastAPI(title="Было")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 
+@app.on_event("startup")
+async def _warmup():
+    """Модель эмбеддингов и карта брифа по умолчанию грузятся в фоне при старте —
+    иначе первый /api/check на демо ждёт ~40 с."""
+    async def run():
+        try:
+            await space("fkn2026")
+            await asyncio.to_thread(ec.embed, ["прогрев"])
+        except Exception as e:  # noqa: BLE001 — прогрев не должен ронять сервер
+            print(f"прогрев не удался: {type(e).__name__}: {e}")
+    asyncio.create_task(run())
+
+
 @app.get("/api/map")
 async def get_map(brief: str = "fkn2026"):
     sp = await space(brief)
@@ -156,8 +169,9 @@ class CheckIn(BaseModel):
     twists: bool = True
 
 
-def _cache_path(brief: str, idea: str) -> Path:
-    key = hashlib.sha1(f"{brief}\n{' '.join(idea.lower().split())}".encode()).hexdigest()[:16]
+def _cache_path(brief: str, idea: str, twists: bool) -> Path:
+    # флаг twists в ключе: быстрый ответ без поворота не должен подменять полный
+    key = hashlib.sha1(f"{brief}\n{' '.join(idea.lower().split())}\n{twists}".encode()).hexdigest()[:16]
     return CACHE / f"check_{brief}_{key}.json"
 
 
@@ -165,7 +179,7 @@ def _cache_path(brief: str, idea: str) -> Path:
 async def check(req: CheckIn):
     if not req.idea.strip():
         raise HTTPException(400, "пустая идея")
-    path = _cache_path(req.brief, req.idea)
+    path = _cache_path(req.brief, req.idea, req.twists)
     if path.exists():  # инвариант 5: заготовленные идеи отвечают без сети
         return {**json.loads(path.read_text(encoding="utf-8")), "cached": True}
 
