@@ -47,7 +47,8 @@ def brief_prompt(brief_text: str, persona: dict, k: int) -> str:
 
 async def one_sim(sim_id, model, persona, brief, brief_text, k, inline=False) -> list[dict]:
     text = brief_prompt(brief_text, persona, k) + (INLINE_MECHANIC if inline else "")
-    r = await llm.complete_json(model, text, temperature=1.0, max_tokens=3000)
+    # reasoning low: DeepSeek/Qwen иначе тратят весь max_tokens на размышление и не отвечают
+    r = await llm.complete_json(model, text, temperature=1.0, max_tokens=4000, reasoning="low")
     raw = r.get("ideas", []) if isinstance(r, dict) else r
     ideas = []
     for x in raw[:k]:

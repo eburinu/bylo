@@ -1,0 +1,31 @@
+{
+ "real": "oneaquahealth-ieee-hackathon",
+ "pool": "oneaquahealth-ieee-hackathon",
+ "control": "multimodal-ai-hackathon-2026-7",
+ "n_projects": 212,
+ "normalized": true,
+ "threshold": 0.41,
+ "n_sims": 17,
+ "reps": 50,
+ "coverage": 0.198,
+ "coverage_std": 0.0,
+ "control_coverage": 0.018,
+ "control_std": 0.005,
+ "curve": [
+  {
+   "n_sims": 5,
+   "pool": 0.08,
+   "control": 0.008
+  },
+  {
+   "n_sims": 10,
+   "pool": 0.142,
+   "control": 0.014
+  },
+  {
+   "n_sims": 17,
+   "pool": 0.198,
+   "control": 0.018
+  }
+ ]
+}

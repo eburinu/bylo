@@ -12,9 +12,10 @@ import asyncio
 from engine import generate, normalize
 
 
-async def run(brief: str, only_raw: bool):
+async def run(brief: str, only_raw: bool, free: bool = False):
     pool = generate.load_pool(brief)
-    todo = [i for i in pool if not only_raw or "mechanic_raw" not in i]
+    todo = [i for i in pool if (not only_raw or "mechanic_raw" not in i)
+            and (not free or i["model"].endswith(":free"))]
     print(f"переписываю {len(todo)} механик из {len(pool)}")
     done = failed = 0
 
@@ -38,5 +39,6 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--brief", default="fkn2026")
     ap.add_argument("--only-raw", action="store_true", help="только те, что ещё не переписаны")
+    ap.add_argument("--free", action="store_true", help="только соседи на :free моделях (писали механику сами)")
     a = ap.parse_args()
-    asyncio.run(run(a.brief, a.only_raw))
+    asyncio.run(run(a.brief, a.only_raw, a.free))

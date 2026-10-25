@@ -195,6 +195,11 @@ async def check(req: CheckIn):
             idea = await normalize.user_idea(req.idea)
         except Exception:  # noqa: BLE001 — сеть упала: считаем по сырому тексту
             online = False
+    # поворот генерируем параллельно с судьёй: он зависит только от идеи и кластеров (−5…8 с)
+    proposal = None
+    if req.twists and online:
+        big = sorted(sp.cluster_sims, key=lambda c: -sp.cluster_sims[c])[:TWIST_CLUSTERS]
+        proposal = asyncio.create_task(twist.propose(idea, [sp.cluster_label.get(c, "") for c in big]))
     s = (await asyncio.to_thread(sp.sims, [idea["mechanic"]]))[0]
     try:
         hits = await sp.matches(idea["mechanic"], s, online)
@@ -219,10 +224,11 @@ async def check(req: CheckIn):
     top = int(sp.labels[order[0]])
 
     twists = []
-    if req.twists and online and rate > 0:
-        big = sorted(sp.cluster_sims, key=lambda c: -sp.cluster_sims[c])[:TWIST_CLUSTERS]
+    if proposal and not (online and rate > 0):
+        proposal.cancel()  # идея уже уникальна или судья отвалился — поворот не нужен
+    elif proposal:
         try:
-            cand = await twist.propose(idea, [sp.cluster_label.get(c, "") for c in big])
+            cand = await proposal
         except Exception:  # noqa: BLE001 — поворот необязателен
             cand = []
         if cand:
