@@ -221,7 +221,12 @@ async def check(req: CheckIn):
                        "mechanic": i["mechanic"], "similarity": round(float(s[j]), 3), "match": j in hits})
         if len(clones) == N_CLONES:
             break
-    top = int(sp.labels[order[0]])
+    # кластер вердикта — тот, где больше всего соседей-клонов, и только если их там ≥ 2:
+    # редкая идея при кластеризации прилипает к случайной куче («тени и солнце» → «аптечка»)
+    by_cluster = {}
+    for j in hits:
+        by_cluster.setdefault(int(sp.labels[j]), set()).add(sp.ideas[j]["sim_id"])
+    top, top_sims = max(by_cluster.items(), key=lambda kv: len(kv[1]), default=(None, set()))
 
     twists = []
     if proposal and not (online and rate > 0):
@@ -244,9 +249,9 @@ async def check(req: CheckIn):
             twists.sort(key=lambda x: x["collision_rate"])
 
     out = {"idea": idea, "n_sims": sp.n_sims, "collision_sims": n_coll, "collision_rate": rate,
-           # null, если ни один сосед не выше порога: иначе «ближайший» кластер вводит в заблуждение
+           # null, если клонов меньше двух в одном кластере: иначе «ближайший» кластер вводит в заблуждение
            "cluster": {"id": top, "label": sp.cluster_label.get(top, ""), "size_sims": sp.cluster_sims[top]}
-           if n_coll else None,
+           if len(top_sims) >= 2 else None,
            "clones": clones, "name_matches": name_matches(idea["title"], sp.ideas),
            "twists": twists, "threshold": threshold(), "judged": online, "cached": False}
     if online:
