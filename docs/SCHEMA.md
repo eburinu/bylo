@@ -54,10 +54,11 @@
   "collision_sims": 9,
   "collision_rate": 0.09,
   "cluster": {"id": 3, "label": "…", "size_sims": 31},
-  "clones": [{"sim_id": "s042", "model": "…", "title": "…", "mechanic": "…", "similarity": 0.86}],
+  "clones": [{"sim_id": "s042", "model": "…", "title": "…", "mechanic": "…", "similarity": 0.41, "match": true}],
   "name_matches": [{"sim_id": "s017", "title": "Алиби"}],
   "twists": [{"title": "…", "mechanic": "…", "collision_rate": 0.01}],
-  "threshold": 0.24,
+  "threshold": 0.32,
+  "judged": true,
   "cached": false
 }
 ```
@@ -65,8 +66,10 @@
 - `twists` может быть пустым: поворот не готов, идея уже уникальна (`collision_sims` = 0)
   или ни один поворот не прошёл перепроверку.
 - `cluster` = `null`, если `collision_sims` = 0 — идея ни в каком кластере.
-- `clones` — 5 ближайших соседей (по одной идее от соседа), **даже ниже порога**;
-  «клон» в интерфейсе — только те, у кого `similarity >= threshold`.
+- `clones` — 5 соседей (по одной идее от соседа): сначала `match: true`, потом ближайшие.
+  «Клон» в интерфейсе — только `match: true`.
+- `match` решает судья-LLM по `JUDGE_TOP` ближайшим (`judged: true`); без сети —
+  порог косинуса `threshold` из `data/cache/threshold.json` (`judged: false`).
 - `similarity` — косинус после центрирования эмбеддингов (≈0 — не связаны,
   0.2+ — та же идея), не сырой косинус e5.
 - Запрос может нести `"twists": false` — быстрый ответ без поворота.

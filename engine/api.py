@@ -18,19 +18,20 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from engine import embed_cluster as ec
-from engine import generate, llm, normalize, twist
+from engine import generate, judge, llm, normalize, twist
 
 ROOT = Path(__file__).resolve().parent.parent
 CACHE = ROOT / "data" / "cache"
-THRESHOLD_FILE = ROOT / "data" / "gold" / "threshold.json"
+THRESHOLD_FILE = CACHE / "threshold.json"  # пишет python -m engine.calibrate
 N_CLONES = 5
 LABEL_TOP = 20     # сколько крупнейших кластеров подписывать через LLM
 TWIST_CLUSTERS = 8  # сколько кластеров показывать генератору поворота
+JUDGE_TOP = int(os.getenv("JUDGE_TOP", "40"))  # сколько ближайших отдавать судье
 
 
 def threshold() -> float:
-    """Порог «та же идея» в центрированном косинусе. Калибруется по data/gold/pairs.csv
-    (инвариант 3); пока разметки нет — env или лучший F1 по парам из seed."""
+    """Порог «та же идея» в центрированном косинусе — запасной путь без сети, когда судья
+    недоступен. Калибруется по data/gold/pairs.csv (инвариант 3)."""
     if THRESHOLD_FILE.exists():
         return float(json.loads(THRESHOLD_FILE.read_text(encoding="utf-8"))["threshold"])
     return float(os.getenv("COLLISION_SIM", "0.24"))
@@ -58,9 +59,18 @@ class Space:
     def sims(self, mechanics: list[str]) -> np.ndarray:
         return ec.center(ec.embed(mechanics), self.mean) @ self.emb.T
 
-    def collision(self, s: np.ndarray, t: float) -> int:
-        """Сколько соседей дали хотя бы одну идею с похожестью ≥ t (инвариант 1)."""
-        return len({self.ideas[j]["sim_id"] for j in np.nonzero(s >= t)[0]})
+    async def matches(self, mechanic: str, s: np.ndarray, online: bool) -> set[int]:
+        """Номера идей пула, которые «та же идея». Онлайн — судья по JUDGE_TOP ближайшим,
+        офлайн — порог по косинусу."""
+        if not online:
+            return {int(j) for j in np.nonzero(s >= threshold())[0]}
+        cand = [int(j) for j in np.argsort(-s)[:JUDGE_TOP]]
+        verdicts = await judge.many(mechanic, [self.ideas[j]["mechanic"] for j in cand])
+        return {j for j, v in zip(cand, verdicts) if v == "да"}
+
+    def n_sims_of(self, idx: set[int]) -> int:
+        """Сколько разных соседей среди этих идей (инвариант 1)."""
+        return len({self.ideas[j]["sim_id"] for j in idx})
 
 
 _spaces: dict[str, Space] = {}
@@ -167,22 +177,28 @@ async def check(req: CheckIn):
             idea = await normalize.user_idea(req.idea)
         except Exception:  # noqa: BLE001 — сеть упала: считаем по сырому тексту
             online = False
-    t = threshold()
     s = (await asyncio.to_thread(sp.sims, [idea["mechanic"]]))[0]
-    n_coll = sp.collision(s, t)
+    try:
+        hits = await sp.matches(idea["mechanic"], s, online)
+    except Exception:  # noqa: BLE001 — судья упал посреди запроса: считаем по порогу
+        online = False
+        hits = await sp.matches(idea["mechanic"], s, False)
+    n_coll = sp.n_sims_of(hits)
     rate = round(n_coll / sp.n_sims, 3)
 
+    # клоны — сначала признанные той же идеей, затем просто ближайшие; по одной идее от соседа
+    order = sorted(range(len(s)), key=lambda j: (j not in hits, -s[j]))
     clones, seen = [], set()
-    for j in np.argsort(-s):
+    for j in order:
         i = sp.ideas[j]
         if i["sim_id"] in seen:
             continue
         seen.add(i["sim_id"])
         clones.append({"sim_id": i["sim_id"], "model": i["model"], "title": i["title"],
-                       "mechanic": i["mechanic"], "similarity": round(float(s[j]), 3)})
+                       "mechanic": i["mechanic"], "similarity": round(float(s[j]), 3), "match": j in hits})
         if len(clones) == N_CLONES:
             break
-    top = int(sp.labels[int(np.argmax(s))])
+    top = int(sp.labels[order[0]])
 
     twists = []
     if req.twists and online and rate > 0:
@@ -193,8 +209,12 @@ async def check(req: CheckIn):
             cand = []
         if cand:
             st = await asyncio.to_thread(sp.sims, [c["mechanic"] for c in cand])
-            for c, row in zip(cand, st):
-                r = round(sp.collision(row, t) / sp.n_sims, 3)
+            try:
+                rechecked = await asyncio.gather(*(sp.matches(c["mechanic"], row, True) for c, row in zip(cand, st)))
+            except Exception:  # noqa: BLE001 — без перепроверки поворот не показываем (инвариант 4)
+                rechecked = []
+            for c, h in zip(cand, rechecked):
+                r = round(sp.n_sims_of(h) / sp.n_sims, 3)
                 if r < rate:  # инвариант 4: только перепроверенные и реже исходной
                     twists.append({**c, "collision_rate": r})
             twists.sort(key=lambda x: x["collision_rate"])
@@ -204,7 +224,7 @@ async def check(req: CheckIn):
            "cluster": {"id": top, "label": sp.cluster_label.get(top, ""), "size_sims": sp.cluster_sims[top]}
            if n_coll else None,
            "clones": clones, "name_matches": name_matches(idea["title"], sp.ideas),
-           "twists": twists, "threshold": t, "cached": False}
+           "twists": twists, "threshold": threshold(), "judged": online, "cached": False}
     if online:
         CACHE.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
