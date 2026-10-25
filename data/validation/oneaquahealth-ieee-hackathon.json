@@ -1,0 +1,1062 @@
+[
+ {
+  "title": "AquaConnect",
+  "tagline": "A network-aware freshwater resilience dashboard that turns weather, river flow, ecological context, and field observations into interpretable monitoring priorities and 7-day outlooks.",
+  "url": "https://devpost.com/software/aquaconnect"
+ },
+ {
+  "title": "Aqua ask",
+  "tagline": "An advanced multi-modal search engine powered by Retrieval-Augmented-Generation connecting citizens, AI,Documented Research and live web intelligence to deliver actionable urban water insights.",
+  "url": "https://devpost.com/software/aqua-ask"
+ },
+ {
+  "title": "AquaSentinel AI",
+  "tagline": "Real-time freshwater telemetry & predictive anomaly engine forecasting urban aquatic ecosystem degradation using IoT streams and machine learning.",
+  "url": "https://devpost.com/software/aquasentinel-ai"
+ },
+ {
+  "title": "RiverRelay",
+  "tagline": "From citizen observation to human action.",
+  "url": "https://devpost.com/software/riverrelay"
+ },
+ {
+  "title": "AquaSentinel",
+  "tagline": "A practical water-quality intelligence system for detecting change, explaining risk, forecasting the next year, and prioritizing inspection.",
+  "url": "https://devpost.com/software/aquasentinel-lxzbgr"
+ },
+ {
+  "title": "AquaPass",
+  "tagline": "AquaPass is a decision-support and interoperability platform for urban aquatic One Health",
+  "url": "https://devpost.com/software/aquapass"
+ },
+ {
+  "title": "AquaImpact",
+  "tagline": "Small actions. Real impact",
+  "url": "https://devpost.com/software/ttt-mfybde"
+ },
+ {
+  "title": "RiverGuard",
+  "tagline": "From River Chemistry to Clinical Diagnosis. \"RiverGuard: The River is trying to tell doctors something. We're making sure they hear it.\"",
+  "url": "https://devpost.com/software/riverguard-ak8gcm"
+ },
+ {
+  "title": "Rivulet",
+  "tagline": "Rivulet tells a city how far to trust each citizen report on an urban stream, and where to look next. FHIR-ready for the OneAquaHealth guide.",
+  "url": "https://devpost.com/software/rivulet-tz8wn5"
+ },
+ {
+  "title": "AquaSentinel",
+  "tagline": "AquaSentinel is a multimodal water-safety platform that fuses environmental evidence to detect and explain contamination threats, orchestrate human-approved response, and verify outcomes using FHIR.",
+  "url": "https://devpost.com/software/aqua-sentinel-7jtuy1"
+ },
+ {
+  "title": "AquaSense — One Health Stream Intelligence",
+  "tagline": "AI-powered freshwater intelligence platform connecting human, aquatic, and ecosystem health. AquaSense analyzes water-quality data, identifies risks, and generates actionable One Health insights.",
+  "url": "https://devpost.com/software/aquasense-one-health-stream-intelligence"
+ },
+ {
+  "title": "AquaFHIR",
+  "tagline": "AquaFHIR Bridge turns scattered river, satellite, and citizen readings into reviewed FHIR records so one crossed threshold reaches public health, the vet, and the water authority at the same time.",
+  "url": "https://devpost.com/software/aquafhir"
+ },
+ {
+  "title": "BiteCast",
+  "tagline": "BiteCast maps which ditches, drains and ponds in any town are breeding biting mosquitoes tonight, using weather, water maps and mosquito records, and explains why.",
+  "url": "https://devpost.com/software/streamsense-ndyzs5"
+ },
+ {
+  "title": "Smart Ward Assistant",
+  "tagline": "A low-cost, 100% offline Edge-AI patient monitoring system for rural hospitals that uses wearable sensors and localized voice alerts to prevent silent deterioration.",
+  "url": "https://devpost.com/software/smart-ward-assistant"
+ },
+ {
+  "title": "GUARDIAN OF THE WATER",
+  "tagline": "A gamified environmental adventure that combines interactive learning with real-world cleanup missions, inspiring players to understand water pollution and take action to protect freshwater ecosystems",
+  "url": "https://devpost.com/software/guardian-of-the-water"
+ },
+ {
+  "title": "Hydromind-X",
+  "tagline": "HydroMind-X is a smart water intelligence and continuous-auditing platform for sustainable data centers.",
+  "url": "https://devpost.com/software/hydromind-x"
+ },
+ {
+  "title": "AquaPulse-OneHealth",
+  "tagline": "Urban Freshwater Telemetry & Vector Surveillance Platform",
+  "url": "https://devpost.com/software/aquapulse-onehealth"
+ },
+ {
+  "title": "StreamSentinel",
+  "tagline": "An AI assistant that pre-fills the OneAquaHealth citizen form from a stream photo and estimates a One Health risk, with humans always in the loop.",
+  "url": "https://devpost.com/software/aquawatch-ai-xgzij4"
+ },
+ {
+  "title": "AquaSentinel: One Health Water Intelligence",
+  "tagline": "AquaSentinel turns citizen observations and USGS hydrology into explainable early warnings, digital water twins, and human-verified resilience actions for urban waterways.",
+  "url": "https://devpost.com/software/aquasentinel-one-health-water-intelligence"
+ },
+ {
+  "title": "Water Health Signal",
+  "tagline": "An explainable stream-health signal that turns citizen water observations into an early-warning score, boil-water advisory candidate, and human-reviewed escalation path for authorities.",
+  "url": "https://devpost.com/software/water-health-signal"
+ },
+ {
+  "title": "JolSetu",
+  "tagline": "💧 AI reads a 20-taka arsenic test kit, QR-stamps tubewells into a tamper-proof live map, and routes families to verified safe water. Offline-first, in Bangla.",
+  "url": "https://devpost.com/software/jolsetu"
+ },
+ {
+  "title": "OneAquaHealthStudio: From Streams to One Health Intelligence",
+  "tagline": "Connect water, citizen-science, and public-health data through FHIR R4 to make station-level One Health evidence easier to inspect.",
+  "url": "https://devpost.com/software/oneaquahealth"
+ },
+ {
+  "title": "StreamDoctor",
+  "tagline": "An AI-supported stream-health assessment tool that turns community observations into understandable, trust-aware insights",
+  "url": "https://devpost.com/software/streamdoctor"
+ },
+ {
+  "title": "Neer",
+  "tagline": "Healthy streams, healthy us. Turns citizen and data into a Health score, the risk behind it, and what to do about it.",
+  "url": "https://devpost.com/software/neer"
+ },
+ {
+  "title": "AquaVerify",
+  "tagline": "An intuitive, mobile-first freshwater observation app making citizen environmental monitoring accessible, jargon-free, and 100% offline.",
+  "url": "https://devpost.com/software/aquaverify"
+ },
+ {
+  "title": "Hydria",
+  "tagline": "Observe. Report. Protect.",
+  "url": "https://devpost.com/software/hydria-yozdea"
+ },
+ {
+  "title": "PharmaShed",
+  "tagline": "PharmaShed flags which urban streams are most likely contaminated by pharmaceutical leakage — before anyone samples them — so monitoring teams know exactly where to look first.",
+  "url": "https://devpost.com/software/pharmashed"
+ },
+ {
+  "title": "Biosentinel",
+  "tagline": "BioSentinel — Turning aquatic life into living indicators of urban water health.",
+  "url": "https://devpost.com/software/biosentinel-6z97g8"
+ },
+ {
+  "title": "HAND MATRIX",
+  "tagline": "HAND MATRIX is an AI-powered hand gesture recognition system that uses computer vision to detect and understand hand gestures in real time, enabling simple and accessible human-computer interaction.",
+  "url": "https://devpost.com/software/hand-matrix"
+ },
+ {
+  "title": "AquaSentinel",
+  "tagline": "Turning citizen stream observations into verified, explainable One Health alerts.",
+  "url": "https://devpost.com/software/aquasentinel-mt8cpx"
+ },
+ {
+  "title": "AquaLens: Freshwater Biodiversity Reports",
+  "tagline": "Turn freshwater specimen images into biodiversity reports. Explore predicted organism counts, richness estimates, and confidence scores, then download the results.",
+  "url": "https://devpost.com/software/aqualens-freshwater-biodiversity-reports"
+ },
+ {
+  "title": "Circuit Lab",
+  "tagline": "An interactive series circuit simulator that shows the circuit two ways at once; physics behind it and the linear-algebra system that predicts it",
+  "url": "https://devpost.com/software/circuit-lab-fvwxct"
+ },
+ {
+  "title": "AquaLoop",
+  "tagline": "AquaLoop is a personal water-intelligence platform that estimates daily water use, reveals consumption patterns, and helps people set measurable goals to reduce waste.",
+  "url": "https://devpost.com/software/aqualoop"
+ },
+ {
+  "title": "Aquasync",
+  "tagline": "\"From Water Sources to Patient Care -One Health Intelligence in Real Time.\"",
+  "url": "https://devpost.com/software/aquasync"
+ },
+ {
+  "title": "AquaSense AI",
+  "tagline": "Making water health easier to monitor, understand and act on with AI.",
+  "url": "https://devpost.com/software/aquasense-ai-rfinvj"
+ },
+ {
+  "title": "AquaSentinel",
+  "tagline": "A virtual water-quality sensor for Philadelphia’s tidal Delaware: hourly Safe/Unsafe flags for E. coli risk, MCP access for AI assistants, and FHIR alerts to a simulated health agency.",
+  "url": "https://devpost.com/software/aquasentinel-kb7l1f"
+ },
+ {
+  "title": "Second Look! : One Aqua Health",
+  "tagline": "Learn to Spot Creek Damage, Then Report It!",
+  "url": "https://devpost.com/software/buzzbee"
+ },
+ {
+  "title": "StreamSense",
+  "tagline": "AI-powered community stream monitoring that turns citizen photos into explainable environmental signals, community-verified insights, and actionable One Health alerts.",
+  "url": "https://devpost.com/software/streamsense-w7qkvo"
+ },
+ {
+  "title": "MediVerify-Pro",
+  "tagline": "MediVerify Pro: A secure platform to combat counterfeit medicine. Instant serial verification for consumers and smart inventory management for admins. Safety in every dose.",
+  "url": "https://devpost.com/software/mediverify-pro-hgeiqt"
+ },
+ {
+  "title": "PYRO-CELL",
+  "tagline": "\"Turning ocean waste into clean water through carbon innovation.\"",
+  "url": "https://devpost.com/software/pyro-cell"
+ },
+ {
+  "title": "AquaRelay",
+  "tagline": "AquaRelay connects scattered freshwater data into a living record for every water body—bringing citizen reports, evidence, actions and recovery together so its history never gets lost.",
+  "url": "https://devpost.com/software/aquarelay-nfgqrm"
+ },
+ {
+  "title": "Stream-to-Clinic",
+  "tagline": "Citizen stream observations become OneAquaHealth FHIR resources, and risky patterns become standard FHIR alerts for the clinics that serve the neighbourhood.",
+  "url": "https://devpost.com/software/stream-to-clinic"
+ },
+ {
+  "title": "Clinic Management System",
+  "tagline": "One Hospital. One OS. Every Workflow Connected.",
+  "url": "https://devpost.com/software/zenohosp-hospital-s-operating-system"
+ },
+ {
+  "title": "Streamcoy",
+  "tagline": "Your phone listens to a stream for 30 seconds and tells you if mosquitoes are breeding there: offline, explainable, and export-ready as HL7 FHIR; One Health intelligence, from your pocket",
+  "url": "https://devpost.com/software/streamcoy"
+ },
+ {
+  "title": "AquaPulse",
+  "tagline": "Urban Freshwater Bio-Sentinel & Citizen Telemetry Intelligence",
+  "url": "https://devpost.com/software/aquapulse"
+ },
+ {
+  "title": "AgentResume-AI",
+  "tagline": "AI-powered resume analysis that matches jobs, identifies skill gaps, and guides students toward smarter career opportunities and professional growth.",
+  "url": "https://devpost.com/software/worksphere360-ai"
+ },
+ {
+  "title": "AquaPulse",
+  "tagline": "AquaPulse: AI reads five field measurements and gives an instant Healthy/At-Risk water verdict, trained on real global GEMStat data, to help communities act before harm spreads.",
+  "url": "https://devpost.com/software/aquapulse-j98y6l"
+ },
+ {
+  "title": "AquaGuardAI",
+  "tagline": "Empowering citizen scientists with real-time computer vision to turn everyday stream observations into validated, decision-ready freshwater health intelligence.",
+  "url": "https://devpost.com/software/aquaguardai"
+ },
+ {
+  "title": "AquaLens",
+  "tagline": "AquaLens transforms stream data and citizen observations into clear maps, trends, comparisons, and actionable water-health insights for smarter environmental decisions.",
+  "url": "https://devpost.com/software/aqua-lens-x7nfo6"
+ },
+ {
+  "title": "AquaPulseAI",
+  "tagline": "AquaPulse AI converts citizen reports, images, water-quality inputs, weather context, and historical records into real-time risk maps and action recommendations.",
+  "url": "https://devpost.com/software/aquapulseai"
+ },
+ {
+  "title": "RoofGrid",
+  "tagline": "Turn any rooftop into a practical, data-driven solar plan.",
+  "url": "https://devpost.com/software/roofgrid"
+ },
+ {
+  "title": "Iot based smart shopping system",
+  "tagline": "Revolutionizing shopping with smart IoT technology",
+  "url": "https://devpost.com/software/iot-based-smart-shopping-system-502gbm"
+ },
+ {
+  "title": "OneAquaHealth-Bridge (OAH-Bridge)",
+  "tagline": "Semantic decision layer bridging aquatic environmental surveillance with hospital EHRs using HL7® FHIR® R4, CDS Hooks 1.0, and SNOMED CT to deliver real-time exposure context.",
+  "url": "https://devpost.com/software/oneaquahealth-bridge-oah-bridge"
+ },
+ {
+  "title": "PINN-Sense: Groundwater Contamination Watch",
+  "tagline": "Sparse sensors, full picture: physics-informed AI reconstructs contamination plumes in real time, detecting risk to drinking-water wells earlier than naive methods. I am submitting to track 3.",
+  "url": "https://devpost.com/software/pinn-sense-groundwater-contamination-watch-nx032s"
+ },
+ {
+  "title": "Streams to Systems: citizen stream reports as FHIR evidence",
+  "tagline": "Citizens report what they see at a stream. It reaches public health as validated OneAquaHealth FHIR evidence, reviewed against lab data, with a history that survives every handover.",
+  "url": "https://devpost.com/software/streams-to-systems-citizen-stream-reports-as-fhir-evidence"
+ },
+ {
+  "title": "StreamSense",
+  "tagline": "Bayesian sense-making for citizen science: from 'it smells funny' to 'likely sewage, 2 km upstream, near a playground'.",
+  "url": "https://devpost.com/software/streamsense-9suli0"
+ },
+ {
+  "title": "Riparia",
+  "tagline": "From a photo on a phone to a standards-compliant health record — with a human always in the loop.",
+  "url": "https://devpost.com/software/riparia"
+ },
+ {
+  "title": "Streamproof",
+  "tagline": "A better second look: turn a stream photo into an inspectable record and a useful next request.",
+  "url": "https://devpost.com/software/streamproof-ysrd7x"
+ },
+ {
+  "title": "StreamCheck",
+  "tagline": "A second look for citizen stream assessments: explained consistency and weather checks, the citizen decides, FHIR R4 export for OneAquaHealth.",
+  "url": "https://devpost.com/software/streamcheck"
+ },
+ {
+  "title": "Rill",
+  "tagline": "Two hours. A clear plan. A checked outcome. Rill turns citizen stream reports into explained fieldwork plans, assigned tasks and documented rechecks.",
+  "url": "https://devpost.com/software/rill-h8t3s5"
+ },
+ {
+  "title": "OneHealth Lens",
+  "tagline": "Turns citizen stream observations into explainable, FHIR-native One Health intelligence for people, animals, and ecosystems.",
+  "url": "https://devpost.com/software/onehealth-lens"
+ },
+ {
+  "title": "Precision Irrigation Advisory Using Soil Moisture & Weather",
+  "tagline": "PIAS is an enterprise-grade IoT & AI agronomic advisory system engineered to eliminate agricultural water waste and prevent crop stress.",
+  "url": "https://devpost.com/software/precision-irrigation-advisory-using-soil-moisture-weather-qjartg"
+ },
+ {
+  "title": "HydroTriage",
+  "tagline": "Citizen eyes. AI structure. Scientific action. HydroTriage transforms raw urban water observations into evidence-quality-scored reports that researchers can triage, validate, and act on in minutes.",
+  "url": "https://devpost.com/software/hydrotriage"
+ },
+ {
+  "title": "AquaVerify AI",
+  "tagline": "Human-in-the-loop AI for more reliable citizen stream observations",
+  "url": "https://devpost.com/software/aquaverify-ai"
+ },
+ {
+  "title": "AquaVitals — FHIR Vitals for Urban Streams",
+  "tagline": "Four AI agents turn citizen water tests into FHIR-standard health records — giving urban streams a chart a hospital system could actually read.",
+  "url": "https://devpost.com/software/aquavitals-fhir-vitals-for-urban-streams"
+ },
+ {
+  "title": "Verdant",
+  "tagline": "In three years, 18 US states alone reported 389 human and 413 animal illnesses from harmful algal blooms. Verdant shows water managers where to sample first and turns shore reports into evidence.",
+  "url": "https://devpost.com/software/verdant-dhv2mt"
+ },
+ {
+  "title": "Hydros: Don't guess the water, investigate it.",
+  "tagline": "Hydros investigates suspicious water: photo + location → AI pipeline → evidence-backed assessment. Honest about uncertainty. FHIR-ready. Built for OneAquaHealth.",
+  "url": "https://devpost.com/software/hydros-don-t-guess-the-water-investigate-it"
+ },
+ {
+  "title": "Ai Document Summariser",
+  "tagline": "AI Document Summarizer – Automatically converts lengthy documents into concise, meaningful summaries using Hugging Face NLP models.",
+  "url": "https://devpost.com/software/ai-document-summariser"
+ },
+ {
+  "title": "Aquapulse",
+  "tagline": "Track Water. Save Water. Shape the Future.",
+  "url": "https://devpost.com/software/aquapulse-z8v1fk"
+ },
+ {
+  "title": "AquaSafe AI",
+  "tagline": "Transforming citizen observations into explainable water quality intelligence with human-in-the-loop verification to protect freshwater ecosystems and public health.",
+  "url": "https://devpost.com/software/aquasafe-ai"
+ },
+ {
+  "title": "aqua-signal",
+  "tagline": "Is your city's river getting better or worse? aqua-signal answers that from free public sensors — no API keys, no black boxes.",
+  "url": "https://devpost.com/software/aqua-signal"
+ },
+ {
+  "title": "Stream Risk Envelope",
+  "tagline": "A stream-record review aid that explains exceptions, exposes uncertainty and exports reasoned human follow-ups.",
+  "url": "https://devpost.com/software/stream-risk-envelope"
+ },
+ {
+  "title": "AquaQuest AI",
+  "tagline": "Empowering communities to monitor and protect urban water quality through AI vision, real-time telemetry, and gamified citizen science.",
+  "url": "https://devpost.com/software/aquaquest-ai"
+ },
+ {
+  "title": "AquaRelay",
+  "tagline": "AquaRelay turns everyday environmental observations into shared evidence, helping communities verify what’s happening and giving experts clearer information to act.",
+  "url": "https://devpost.com/software/aquarelay"
+ },
+ {
+  "title": "StreamScope",
+  "tagline": "Making urban waterways visible, understandable, and closer to citizens.",
+  "url": "https://devpost.com/software/streamscope"
+ },
+ {
+  "title": "Kingfisher",
+  "tagline": "Kingfisher is an early-warning system for urban streams that forecasts water quality 10 days ahead, explains emerging risks, and tests interventions before pollution turns into a crisis.",
+  "url": "https://devpost.com/software/kingfisher-76cn29"
+ },
+ {
+  "title": "AquaLens",
+  "tagline": "AquaLens helps citizens observe like scientists through guided visual stream checks, evidence feedback, and repeat visits that turn everyday observations into useful ecosystem monitoring data.",
+  "url": "https://devpost.com/software/aqualens-9tv6jx"
+ },
+ {
+  "title": "StreamLink",
+  "tagline": "One shared record per urban stream. Maps say where to look first, volunteers report what the maps and rare lab visits miss, and the lab confirms. All in OneAquaHealth's own FHIR standard.",
+  "url": "https://devpost.com/software/streamlink"
+ },
+ {
+  "title": "Dipper: Find Urban Stream Pollution at Its Source",
+  "tagline": "Citizen reports become a Bayesian search for the pipe polluting an urban stream. Dipper picks the next best check, hands the source to utilities in FHIR and drafts public health advisories.",
+  "url": "https://devpost.com/software/dipper-find-urban-stream-pollution-at-its-source"
+ },
+ {
+  "title": "AfterRain",
+  "tagline": "After rain, sewage reaches city rivers unseen. AfterRain forecasts, hour by hour, when each stream is in danger, and tells city teams exactly where and when to sample next.",
+  "url": "https://devpost.com/software/afterrain"
+ },
+ {
+  "title": "HydroScope: Satellite-AI Water Intelligence",
+  "tagline": "See Water. Predict Change. Act Before Drought.",
+  "url": "https://devpost.com/software/hydroscope-satellite-ai-water-intelligence"
+ },
+ {
+  "title": "Eco-Pulse",
+  "tagline": "From citizen data to actionable insight: Eco-Pulse maps freshwater health, detects anomalies, scores risk, and delivers real-time One Health intelligence",
+  "url": "https://devpost.com/software/eco-pulse-kvhadj"
+ },
+ {
+  "title": "Streamkeeper",
+  "tagline": "StreamKeeper turns volunteers into stream stewards by prioritizing overdue waterway checks with a dynamic map and quests followed with 5 question survey",
+  "url": "https://devpost.com/software/streamkeeper"
+ },
+ {
+  "title": "Streamsense",
+  "tagline": "Check a city stream's health in 10 minutes. AI reads your photo and suggests answers, a fixed formula scores it, and experts review anything odd. The AI suggests. People decide.",
+  "url": "https://devpost.com/software/streamsense-62chbq"
+ },
+ {
+  "title": "Hydro Sentinel",
+  "tagline": "AI-Powered Water Quality Monitoring from Space",
+  "url": "https://devpost.com/software/hydro-sentinel"
+ },
+ {
+  "title": "StreamKeepers",
+  "tagline": "Citizen-science points priced by what OneAquaHealth doesn't know yet: unchecked streams, old lab data, health risk. Never by the result. Stored as validated OneAquaHealth FHIR.",
+  "url": "https://devpost.com/software/streamkeepers"
+ },
+ {
+  "title": "AquaSentinel",
+  "tagline": "AquaSentinel turns geolocated photos into AI-validated waste hotspot intelligence, helping communities and institutions protect Guanabara Bay in Rio de Janeiro.",
+  "url": "https://devpost.com/software/aquasentinel-2jfgx7"
+ },
+ {
+  "title": "AquaSentinel",
+  "tagline": "“AquaSentinel — Turning citizen observations into AI-powered water health insights and early warnings for healthier ecosystems and communities.”",
+  "url": "https://devpost.com/software/aquasentinel-dimw74"
+ },
+ {
+  "title": "SENTINEL PAWS",
+  "tagline": "Paws on the ground: crowdsourced early warning for urban waterways",
+  "url": "https://devpost.com/software/sentinel-paws"
+ },
+ {
+  "title": "StreamPulse — One Health Stream Intelligence",
+  "tagline": "From streams to systems: turning citizen science into actionable One Health intelligence. Every number cited, zero synthetic data.",
+  "url": "https://devpost.com/software/streampulse-one-health-stream-intelligence"
+ },
+ {
+  "title": "AquaSense",
+  "tagline": "AquaSense turns citizen stream photos into explainable, human-verified water health signals powering maps, analytics & One Health intelligence for healthier urban ecosystems.",
+  "url": "https://devpost.com/software/aquasense-n9wxso"
+ },
+ {
+  "title": "OneAqua Insight Hub",
+  "tagline": "OneAqua Insight Hub: live sensor data + citizen reports + open EU datasets = One Health stream dashboard for 5 cities. Scenario sliders, vitality scores and policy briefs.",
+  "url": "https://devpost.com/software/oneaqua-insight-hub"
+ },
+ {
+  "title": "EcoLoop – Smart Reward-Based Recycling Platform",
+  "tagline": "Turning plastic recycling into citizen action, rewards, and cleaner urban freshwater ecosystems.",
+  "url": "https://devpost.com/software/ecoloop-smart-reward-based-recycling-platform"
+ },
+ {
+  "title": "Aqualens",
+  "tagline": "From river photos to traceable evidence—with AI assistance and human judgment.",
+  "url": "https://devpost.com/software/aqualens-4fan3q"
+ },
+ {
+  "title": "Little Boy'z SongSoong",
+  "tagline": "SongSoong turns real OneAquaHealth waterway observations into music. Hear ecological differences, compare sites, and explore the published data behind each sound.",
+  "url": "https://devpost.com/software/songsoong"
+ },
+ {
+  "title": "Riffle — AI Co-pilot for Citizen Stream Science",
+  "tagline": "A 5-minute guided stream check with an explainable AI co-pilot that double-checks with citizens, then turns each observation into One Health early warnings and FHIR-ready data.",
+  "url": "https://devpost.com/software/riffle-ai-co-pilot-for-citizen-stream-science"
+ },
+ {
+  "title": "AquaPlot",
+  "tagline": "Volunteers name what lives in their stream, an AI double-checks them without seeing their answers, and published rules turn it into a health reading.",
+  "url": "https://devpost.com/software/aquaplot"
+ },
+ {
+  "title": "StreamProof",
+  "tagline": "Citizen stream measurements, reviewed by humans and mapped to FHIR for trustworthy One Health research.",
+  "url": "https://devpost.com/software/streamproof-m76d03"
+ },
+ {
+  "title": "Aqua Quest: Water Memory",
+  "tagline": "An interactive water-sustainability quest that turns learning into real-world action.",
+  "url": "https://devpost.com/software/aqua-quest-water-memory"
+ },
+ {
+  "title": "StreamTrust",
+  "tagline": "AI-assisted, human-verified stream assessments: volunteers photograph streams, confirm every AI suggestion, and export provenance-tracked FHIR data researchers can trust.",
+  "url": "https://devpost.com/software/streamtrust"
+ },
+ {
+  "title": "AquaManFHIR: OneAquaHealth Data Bridge",
+  "tagline": "AquaManFHIR maps OneAquaHealth ecosystem data to traceable FHIR R4 resources, with validation, API access, and a data-grounded AI agent.",
+  "url": "https://devpost.com/software/aquamanfhir-oneaquahealth-data-bridge"
+ },
+ {
+  "title": "Undercurrent",
+  "tagline": "Undercurrent turns stream-health data into actionable insight, revealing when composite scores hide antimicrobial-resistance risks and helping cities decide where to sample next.",
+  "url": "https://devpost.com/software/undercurrent-2s165d"
+ },
+ {
+  "title": "Murmur: a stethoscope for urban streams",
+  "tagline": "Record a city stream and Murmur names the birds and frogs in it, lets you confirm each call by ear, and sets them beside what OneAquaHealth's labs found at the same site.",
+  "url": "https://devpost.com/software/murmur-a-stethoscope-for-urban-streams"
+ },
+ {
+  "title": "Aquora",
+  "tagline": "AQUORA — See What Comes Next: AI-powered freshwater resilience intelligence that turns real environmental data into scenarios, uncertainty insights, and actionable next-best observations.",
+  "url": "https://devpost.com/software/aquora"
+ },
+ {
+  "title": "StreamLens",
+  "tagline": "A second pair of eyes for citizen stream assessments: AI pre-fills answers from photos, the citizen always decides, and every report becomes alerts, fixes and FHIR data.",
+  "url": "https://devpost.com/software/streamlens-tdizsw"
+ },
+ {
+  "title": "StreamFHIR — citizen stream checks health systems can read",
+  "tagline": "Citizen checks of urban streams and ponds become HL7 FHIR data health teams can read, coded like EU water data, tested on real volunteer and agency data. Warnings need corroboration.",
+  "url": "https://devpost.com/software/streamfhir-citizen-stream-checks-health-systems-can-read"
+ },
+ {
+  "title": "AquaGuard AI",
+  "tagline": "Turning citizen freshwater observations into explainable environmental intelligence.",
+  "url": "https://devpost.com/software/aquaguard-ai-06anwq"
+ },
+ {
+  "title": "Singularity View",
+  "tagline": "SingularityView transcends conventional boundaries by concentrating unprecedented amount of institutional data into ninety specialized screens, delivering maximum data density in a robust terminal",
+  "url": "https://devpost.com/software/singularity-view-h0c1bx"
+ },
+ {
+  "title": "StreamReach",
+  "tagline": "One Health early warning for urban streams: citizen checks and forecasts become FHIR risk alerts for GPs via CDS Hooks, with an AI duty officer drafting human-approved advisories.",
+  "url": "https://devpost.com/software/streamreach"
+ },
+ {
+  "title": "Aqua sentinel",
+  "tagline": "An intelligent environmental monitoring system combining interactive dashboards and AI analysis for faster water safety response",
+  "url": "https://devpost.com/software/aqua-sentinel-ohic0a"
+ },
+ {
+  "title": "Data-to-Insight",
+  "tagline": "Empowering cities to turn citizen water observations into early ecological and vector outbreak warnings using fault-tolerant AI and offline-first community surveillance.",
+  "url": "https://devpost.com/software/data-to-insight"
+ },
+ {
+  "title": "LIFEProof",
+  "tagline": "Your personal memory for the things you own. Capture condition baselines with AI vision, track warranties proactively, and prove disputes with cryptographic reports.",
+  "url": "https://devpost.com/software/lifeproof-aetq16"
+ },
+ {
+  "title": "AquaGuard AI",
+  "tagline": "An AI-powered platform that transforms citizen-generated stream data into actionable One Health insights for sustainable urban water ecosystems",
+  "url": "https://devpost.com/software/aquaguard-ai-67diyn"
+ },
+ {
+  "title": "AQUASENTINEL",
+  "tagline": "Multi-source AI early warning for freshwater oxygen risk, turning environmental signals into actionable alerts for human verification.",
+  "url": "https://devpost.com/software/aquasentinel-9z8wvs"
+ },
+ {
+  "title": "AquaPulse",
+  "tagline": "AI-assisted freshwater intelligence that detects environmental anomalies, remembers river patterns, predicts vulnerable hot moments, maps propagation, and prioritizes locations for verification.",
+  "url": "https://devpost.com/software/aquapulse-ugl1a3"
+ },
+ {
+  "title": "Blue Sentinel",
+  "tagline": "A citizen-powered platform that combines calm routing, environmental risk detection, AI verification, and public-health reporting.",
+  "url": "https://devpost.com/software/blue-sentinal"
+ },
+ {
+  "title": "OAH-Lagos: Tropical FHIR Extension",
+  "tagline": "An empirical portability audit and formal HL7 FHIR extension of the European OneAquaHealth stream health toolchain for tropical Lagos, featuring an offline PWA and ML transfer test.",
+  "url": "https://devpost.com/software/oah-lagos-tropical-fhir-extension"
+ },
+ {
+  "title": "StreamPulse",
+  "tagline": "Auditable river-temperature reforecasts that turn unusual warmth into a proposed field check, with OneAquaHealth-derived FHIR records.",
+  "url": "https://devpost.com/software/streampulse-txea6v"
+ },
+ {
+  "title": "BurnCare AI",
+  "tagline": "BurnCare AI is an AI-assisted platform designed to help users take the right next step after a burn injury.",
+  "url": "https://devpost.com/software/burncare-ai"
+ },
+ {
+  "title": "StreamSense",
+  "tagline": "An AI-powered platform that helps people monitor water quality through visual surveys, location data, photos, and intelligent analysis.",
+  "url": "https://devpost.com/software/streamsense-w7vu4m"
+ },
+ {
+  "title": "NEUTRON",
+  "tagline": "Autonomous software maintenance agent that analyzes codebases, detects bugs, plans fixes, executes changes, verifies results, and improves applications safely.",
+  "url": "https://devpost.com/software/neutron-s3d856"
+ },
+ {
+  "title": "EcoSentinel - River Diary: River Twin for Resilience",
+  "tagline": "EcoSentinel turns fragmented river telemetry into an interactive digital twin, prescribing nature-based solutions to curb mosquito proliferation and shield 97k+ citizens from West Nile Virus.",
+  "url": "https://devpost.com/software/ecosentinel-river-diary-river-twin-for-resilience"
+ },
+ {
+  "title": "OAH Data Doctor",
+  "tagline": "An evidence-integrity layer above FHIR: it catches scientifically impossible OneAquaHealth data that passes validation, with the exact proof, impact and safe conclusions.",
+  "url": "https://devpost.com/software/oah-data-doctor"
+ },
+ {
+  "title": "HealixAI",
+  "tagline": "Empowering Your Health Journey with Intelligence.",
+  "url": "https://devpost.com/software/mediai-ztb63v"
+ },
+ {
+  "title": "Brook — talk to your stream",
+  "tagline": "A talking guide for OneAquaHealth's citizen stream check: talk or tap in 7 languages, get every hard word explained, and send data scientists can use right away.",
+  "url": "https://devpost.com/software/brook-talk-to-your-stream"
+ },
+ {
+  "title": "MotilityDDM",
+  "tagline": "Phone-GPU microscopy that detects swimming microbes and is built to say no: falsification gates reject shuffled frames, dead cells and flows.",
+  "url": "https://devpost.com/software/motilityddm"
+ },
+ {
+  "title": "AquaSphere Lite",
+  "tagline": "An interactive groundwater-awareness experience helping people explore, understand, and observe water through a conservation game, knowledge assistant, and environmental observation tool.",
+  "url": "https://devpost.com/software/aquasphere-lite"
+ },
+ {
+  "title": "H2Know",
+  "tagline": "Play and Learn about your waters",
+  "url": "https://devpost.com/software/h2know-nzk8i3"
+ },
+ {
+  "title": "AquaLinks",
+  "tagline": "AquaLinks scores freshwater pollution risk from Sentinel-2 satellite images with fixed math. Five AI agents explain the score and never change it.",
+  "url": "https://devpost.com/software/aqualinks"
+ },
+ {
+  "title": "Aheadwater",
+  "tagline": "Stop water crises before they start. Aheadwater forecasts unsafe city water a day ahead, alerts the right people at once, and follows every case to the all-clear.",
+  "url": "https://devpost.com/software/aheadwater"
+ },
+ {
+  "title": "Aqualink",
+  "tagline": "We turn murky streams into clinical early warnings: our AI catches bad data, predicts mosquito & disease risks, and sends FHIR alerts to hospitals before outbreaks hit.",
+  "url": "https://devpost.com/software/aqualink-qphmx1"
+ },
+ {
+  "title": "Stream Check-up",
+  "tagline": "Know which city streams to check first, and which records to trust.",
+  "url": "https://devpost.com/software/stream-check-up"
+ },
+ {
+  "title": "StreamProof",
+  "tagline": "StreamProof grades and verifies citizen stream reports and writes them in OneAquaHealth's own FHIR profiles, with a machine readable rule for what each trust level may be used for.",
+  "url": "https://devpost.com/software/streamproof-84d9vt"
+ },
+ {
+  "title": "HydroSense",
+  "tagline": "Understand Your Water, Protect Your Ecosystem.",
+  "url": "https://devpost.com/software/hydrosense-gvzykb"
+ },
+ {
+  "title": "StreamVitals",
+  "tagline": "Field companion for citizen stream monitoring: deterministic rules assess 5 OAH indicators, AI explains but never scores, photos and lab sample IDs included.",
+  "url": "https://devpost.com/software/streamvitals"
+ },
+ {
+  "title": "WatSen",
+  "tagline": "Urban freshwater intelligence. Reads a stream's ecology, validates what citizensreport, and forecasts ecosystem stress 72 hours ahead — then explains what thatmeans for human and animal health.",
+  "url": "https://devpost.com/software/watsen"
+ },
+ {
+  "title": "Bahari",
+  "tagline": "A citizen-science stream assessment that speaks a health-data standard.",
+  "url": "https://devpost.com/software/bahari"
+ },
+ {
+  "title": "Stream Report",
+  "tagline": "Turns OneAquaHealth citizen stream checks and lab data into which streams need action, why, and who should act, with a plain sign for residents.",
+  "url": "https://devpost.com/software/stream-report"
+ },
+ {
+  "title": "AquaLens: Satellite AI River Sentinel & One Health Platform",
+  "tagline": "Autonomous satellite sentinel using Copernicus Sentinel-2 to detect toxic river plumes and algae, dispatching HL7 FHIR alerts to emergency hospitals before poisoned water reaches city taps.",
+  "url": "https://devpost.com/software/aqualens-satellite-ai-river-sentinel-one-health-platform"
+ },
+ {
+  "title": "Thyroide -Prediction",
+  "tagline": "\"Predict. Prevent. Protect Your Thyroid.\"",
+  "url": "https://devpost.com/software/thyroide-prediction-8qa5mb"
+ },
+ {
+  "title": "AquaTrust",
+  "tagline": "AquaTrust — turning citizen river data into trustworthy, actionable insights.",
+  "url": "https://devpost.com/software/aqatr7s"
+ },
+ {
+  "title": "AETHER",
+  "tagline": "A window that generates electricity. Invisible Light -> Visible Impact",
+  "url": "https://devpost.com/software/aether-v5wx63"
+ },
+ {
+  "title": "MediCheck AI – Smart Medicine & $ Medical records Verifier",
+  "tagline": "AI-powered medicine safety system that verifies medicines against prescriptions, allergies, and user health details before. Last layer before intake of medicine!",
+  "url": "https://devpost.com/software/medicheck-ai-smart-medicine-prescription-safety-system-6p0omf"
+ },
+ {
+  "title": "Watershed Ledger",
+  "tagline": "Real water-sensor data, scored for people, pets and the stream, where \"unknown\" never means \"safe\".",
+  "url": "https://devpost.com/software/watershed-ledger"
+ },
+ {
+  "title": "AquaForensics",
+  "tagline": "An evidence-guided environmental investigation engine that turns citizen water observations into competing hypotheses, uncertainty analysis, and the next-best evidence to collect.",
+  "url": "https://devpost.com/software/aquaforensics"
+ },
+ {
+  "title": "AquaResilience: Open Water Data to Flood & Drought Decisions",
+  "tagline": "Explainable flood and drought resilience for cities: live open data, early warnings, what-if scenarios and AI briefings.",
+  "url": "https://devpost.com/software/aquaresilience"
+ },
+ {
+  "title": "StreamTrace",
+  "tagline": "Turn citizen stream observations into reviewed evidence and a clear next check, helping communities and researchers focus freshwater investigations and protect ecosystem health.",
+  "url": "https://devpost.com/software/streamtrace"
+ },
+ {
+  "title": "StreamWell",
+  "tagline": "One stream visit, two health checks: OAH stream assessment + 30-second before/after well-being, giving volunteers a reason to return and researchers the missing paired dataset.",
+  "url": "https://devpost.com/software/streamwell"
+ },
+ {
+  "title": "Rill",
+  "tagline": "Stream Intelligence",
+  "url": "https://devpost.com/software/rill-hcjkw6"
+ },
+ {
+  "title": "Naiadex",
+  "tagline": "Citizen science for urban streams — AI-assisted, human-verified",
+  "url": "https://devpost.com/software/naiadex"
+ },
+ {
+  "title": "Creek Watch",
+  "tagline": "Report what you see at the creek in 2 minutes. Creek Watch fuses it with live USGS, weather and state water data into an explainable health score, water alerts and opt-in push.",
+  "url": "https://devpost.com/software/creek-watch"
+ },
+ {
+  "title": "AquaPulse",
+  "tagline": "I built AquaPulse so people can report river pollution with a photo, see nearby reports on a map, and join local cleanup activities.",
+  "url": "https://devpost.com/software/aquapulse-kb2uxc"
+ },
+ {
+  "title": "BloomCast",
+  "tagline": "See toxic algal blooms coming — live risk forecasts, honest confidence bands, and health-standard alerts for any lake",
+  "url": "https://devpost.com/software/bloomcast-u5rn01"
+ },
+ {
+  "title": "Ocean Lense",
+  "tagline": "Ocean Lense uses AI to turn satellite ocean data into clear, depth-wise temperature insights, helping researchers and communities understand changing aquatic ecosystems and environmental risks.",
+  "url": "https://devpost.com/software/ocean-lense"
+ },
+ {
+  "title": "AquaGuard AI",
+  "tagline": "See it. Understand it. Verify it. Act on it.",
+  "url": "https://devpost.com/software/aquaguard-ai-bpfmle"
+ },
+ {
+  "title": "StreamLens",
+  "tagline": "Explainable AI and citizen observations for healthier urban streams. Snap a photo, see what the AI found and why, and make the final call. AI explains. You decide.",
+  "url": "https://devpost.com/software/streamlens-rze18u"
+ },
+ {
+  "title": "FeederSync Aqua",
+  "tagline": "AI-powered water-energy resilience platform that coordinates irrigation with weather, soil moisture, groundwater and freshwater risk to reduce water stress and strengthen ecosystem resilience.",
+  "url": "https://devpost.com/software/feedersync-aqua"
+ },
+ {
+  "title": "StreamRealm",
+  "tagline": "Players conquer land. Scientists get the whole stream.",
+  "url": "https://devpost.com/software/streamrealm"
+ },
+ {
+  "title": "StreamSarthi",
+  "tagline": "StreamSaathi Guardians helps citizens monitor stream health using AI, crowd verification, and expert review. Users earn points for accurate observations, improving both engagement and data quality.",
+  "url": "https://devpost.com/software/streamsarthi"
+ },
+ {
+  "title": "ProofOps - Verified Autonomous Operations Agent",
+  "tagline": "A verified AI operations agent that prevents duplicate and unproven real-world actions using deterministic safety checks, human approval, provider reconciliation, and evidence-backed completion.",
+  "url": "https://devpost.com/software/proofops-verified-autonomous-operations-agent-xst87d"
+ },
+ {
+  "title": "RiverKin: Find where the river needs you",
+  "tagline": "Citizen science that comes back: RiverKin shows where 106 real OneAquaHealth streams need eyes, turns a 5-minute bank-side check into AI-assisted, peer-verified FHIR data.",
+  "url": "https://devpost.com/software/riverkin-find-where-the-river-needs-you"
+ },
+ {
+  "title": "AquaLens",
+  "tagline": "AI suggests, you confirm: a companion app that helps citizens complete OneAquaHealth stream assessments accurately, flags contradictions, and exports FHIR-standard One Health data.",
+  "url": "https://devpost.com/software/aqualens-kywznh"
+ },
+ {
+  "title": "AI-Assisted Urban Freshwater Early Warning & Action",
+  "tagline": "AI-Assisted Urban Freshwater Early Warning & Action",
+  "url": "https://devpost.com/software/ai-assisted-urban-freshwater-early-warning-action"
+ },
+ {
+  "title": "Aquarys",
+  "tagline": "Trust-aware environmental intelligence for urban streams and river restoration governance. Uses OneAquaHealth API to get AI insights into streams!",
+  "url": "https://devpost.com/software/aquarys"
+ },
+ {
+  "title": "Upstream",
+  "tagline": "See a change. Follow it Upstream.",
+  "url": "https://devpost.com/software/upstream-brw73y"
+ },
+ {
+  "title": "StreamPulse",
+  "tagline": "StreamPulse turns stream observations into clear health trends, AI-powered One Health insights, and shareable data—helping communities spot risks and protect local waterways",
+  "url": "https://devpost.com/software/streampulse-nq7zvl"
+ },
+ {
+  "title": "TraceIT",
+  "tagline": "TraceIT applies the longitudinal health record model to ecosystems: provenance-linked lake measurements, explainable neural anomaly screening, and FHIR-style citizen observations.",
+  "url": "https://devpost.com/software/traceit-kzwfxb"
+ },
+ {
+  "title": "Ranoka — 60-second stream checks, explained & FHIR-ready",
+  "tagline": "Anyone can check an urban stream in one minute, in English, French or Malagasy, and get an explained One Health result. Scientists get clean HL7 FHIR R4 data.",
+  "url": "https://devpost.com/software/ranoka-60-second-stream-checks-explained-fhir-ready"
+ },
+ {
+  "title": "SlackWater",
+  "tagline": "Film a stream for 10 seconds. SlackWater says if the water is still or moving and how fast, or refuses and says why. Every reading is fingerprinted, exported as FHIR and anchored on-chain.",
+  "url": "https://devpost.com/software/slackwater"
+ },
+ {
+  "title": "Blue-Green Haven | One Health Engine",
+  "tagline": "Routes vulnerable European citizens along cooling urban streams during extreme heatwaves while crowdsourcing freshwater health for municipal biosecurity and public works dispatch.",
+  "url": "https://devpost.com/software/blue-green-haven-one-health-engine"
+ },
+ {
+  "title": "Diagno+",
+  "tagline": "Explainable AI for Smarter, Human-Centered Cancer Diagnosis.",
+  "url": "https://devpost.com/software/diagno-3c1spo"
+ },
+ {
+  "title": "HYDREON StreamGuard AI",
+  "tagline": "HYDREON transforms citizen stream observations into explainable environmental intelligence, combining multimodal AI with human-in-the-loop expert review to safeguard freshwater ecosystems.",
+  "url": "https://devpost.com/software/hydreon-streamguard-ai"
+ },
+ {
+  "title": "AuraBridge",
+  "tagline": "AuraBridge is an AI companion that helps anyone no matter their age, language, or ability understand the world around them, express themselves, and know what to do next.",
+  "url": "https://devpost.com/software/aurabridge-k94tlf"
+ },
+ {
+  "title": "AquaLedger",
+  "tagline": "AquaLedger answers water questions in 26 languages using only real EEA data. Every number is checked against its source, or the answer is withheld. Built for the OneAquaHealth challenge.",
+  "url": "https://devpost.com/software/aqualedger"
+ },
+ {
+  "title": "FreshWater — eDNA Evidence Investigator",
+  "tagline": "Turning uncertain eDNA detections into explainable scientific insights and smarter sampling decisions for freshwater ecosystems.",
+  "url": "https://devpost.com/software/freshwater-edna-evidence-investigator"
+ },
+ {
+  "title": "TumbuhGuard Standardize",
+  "tagline": "A measurement can be repeatable and still be wrong. TumbuhGuard is an offline protocol for child length/height QA using blinded repeats, reference checks, evidence, and re-standardization.",
+  "url": "https://devpost.com/software/tumbuhguard-standardize-b2qrue"
+ },
+ {
+  "title": "StreamSignal",
+  "tagline": "Turn citizen observations of urban streams into trusted, traceable evidence that researchers and One Health systems can understand, review, and reuse.",
+  "url": "https://devpost.com/software/streamsignal"
+ },
+ {
+  "title": "After Storm",
+  "tagline": "After the storm, sample what matters",
+  "url": "https://devpost.com/software/after-storm"
+ },
+ {
+  "title": "AquaSignal — Freshwater Alert Integrity",
+  "tagline": "AI may rewrite the words. AquaSignal blocks semantic drift in freshwater advisories—preserving protective actions, locations, timing, audiences, and conditions before public release.",
+  "url": "https://devpost.com/software/signallock-emergency-alert-integrity-checker-sla8mw"
+ },
+ {
+  "title": "Limnora",
+  "tagline": "Limnora turns uncertain freshwater observations into explainable AI evidence, human review, and focused revisits—without replacing human judgment.",
+  "url": "https://devpost.com/software/limnora"
+ },
+ {
+  "title": "FreshWater Sentinel",
+  "tagline": "FWS: Malawi's drinking water, watched 24/7. satellites + lab tests + AI flag cholera and contamination risks before they spread, then point responders to the single water point that matters most.",
+  "url": "https://devpost.com/software/freshwater-sentinel"
+ },
+ {
+  "title": "Stream Prior",
+  "tagline": "AI-powered stream health assessment combining citizen observations, rainfall, and lab data to deliver explainable One Health insights and early warnings.",
+  "url": "https://devpost.com/software/stream-prior"
+ },
+ {
+  "title": "EcoStream 3D",
+  "tagline": "An immersive 3D digital twin that turns watershed data into explainable environmental risk insights and early warnings.",
+  "url": "https://devpost.com/software/ecostream-3d"
+ },
+ {
+  "title": "AquaQuest",
+  "tagline": "A citizen science platform that turns everyday water observations into understandable One Health insights for healthier communities and ecosystems.",
+  "url": "https://devpost.com/software/aquaquest"
+ },
+ {
+  "title": "StreamSense: AI-Powered Citizen Science Stream Monitoring",
+  "tagline": "StreamSense runs 7 parallel AI agents to triage citizen stream photos into validated ecological intelligence and FHIR health records, linking bioindicators to community disease prevention.",
+  "url": "https://devpost.com/software/streamsense-ai-powered-citizen-science-stream-monitoring"
+ },
+ {
+  "title": "Thalweg: Make Every River Observation Count",
+  "tagline": "Volunteers' river reports disagree. Thalweg learns who's reliable, shows where uncertainty lives in a real stream, and picks the one observation that would teach us the most.",
+  "url": "https://devpost.com/software/thalweg-make-every-river-observation-count"
+ },
+ {
+  "title": "oneseva",
+  "tagline": "OneSeva: One app for every government service, making access simple, secure, and transparent.",
+  "url": "https://devpost.com/software/oneseva-g9has7"
+ },
+ {
+  "title": "AquaRescue",
+  "tagline": "Turn citizen water pollution reports into evidence-backed investigations and expert-ready recommendations.",
+  "url": "https://devpost.com/software/aquarescue"
+ },
+ {
+  "title": "AquaSense AI",
+  "tagline": "Flags inconsistent citizen stream observations, shows the evidence behind every flag, and routes doubtful reports to human experts. A prototype that never replaces human judgment.",
+  "url": "https://devpost.com/software/aquasense-ai-krgmzs"
+ },
+ {
+  "title": "Tandem: You observe, the AI looks, you decide",
+  "tagline": "Citizens answer first, an AI checks the photos blind, and it speaks only where it has earned trust. Stream checks stay human-led and get more reliable.",
+  "url": "https://devpost.com/software/tandem-you-observe-the-ai-looks-you-decide"
+ },
+ {
+  "title": "AXIOM: The Cognitive Operating System for Learning",
+  "tagline": "A predictive AI engine using 3D Neural Telemetry and Socratic interventions to map cognitive gaps and provide an immutable audit trail for institutional mastery.",
+  "url": "https://devpost.com/software/j-g6xwts"
+ },
+ {
+  "title": "AquaSentinel",
+  "tagline": "Replay freshwater evidence, trace human decisions, and see when changing information makes a warning or review outdated.",
+  "url": "https://devpost.com/software/aquasentinel-l6j30f"
+ },
+ {
+  "title": "AquaAI",
+  "tagline": "AquaAI asks citizens one smart question to fix the missing piece in a stream report, while AI assists and humans always decide.",
+  "url": "https://devpost.com/software/aquaai-d0lona"
+ },
+ {
+  "title": "Swasthya AI",
+  "tagline": "Swasthya AI: A multilingual health memory platform that connects symptoms, medicines, and family history to deliver explainable insights and help patients and doctors make better-informed decisions.",
+  "url": "https://devpost.com/software/swasthya-ai-ipm5v3"
+ },
+ {
+  "title": "OAH Agent Gateway",
+  "tagline": "OAH Agent Gateway makes OneAquaHealth FHIR data safe for AI agents with deterministic trust checks, cited evidence, MCP access, and human-approved citizen-to-FHIR write-back.",
+  "url": "https://devpost.com/software/oah-agent-gateway"
+ },
+ {
+  "title": "FirstFlush",
+  "tagline": "Turning rain forecasts into paired before-and-after stream observations.",
+  "url": "https://devpost.com/software/firstflush"
+ },
+ {
+  "title": "StreamChart",
+  "tagline": "Every patient has a chart. Now every stream does: a 60-second citizen check-up, a sealed AI second look, confidence grades, a care plan signed by an ecologist, and a reply. In FHIR R4.",
+  "url": "https://devpost.com/software/streamchart"
+ },
+ {
+  "title": "StreamSignal",
+  "tagline": "Calibrated weather alerts, focused sampling plans, and field evidence for urban river monitoring. Track 6: Resilience Informatics.",
+  "url": "https://devpost.com/software/streamsignal-2ai5yz"
+ },
+ {
+  "title": "AquaSentinel",
+  "tagline": "Turning citizen observations into actionable freshwater intelligence.",
+  "url": "https://devpost.com/software/aquasentinel-8ztd39"
+ },
+ {
+  "title": "Riffle",
+  "tagline": "A second look for citizen stream assessments. Riffle flags contradictions, explains why, asks the volunteer to re-check, and sends doubtful reports to a person. It never edits an answer.",
+  "url": "https://devpost.com/software/riffle-0mi6zw"
+ },
+ {
+  "title": "Kraków Sponge (Gąbka Krakowa)",
+  "tagline": "The city's water starts upstream. Open data and citizen observations turn drought evidence into transparent retention survey priorities for three rivers around Kraków.",
+  "url": "https://devpost.com/software/krakow-sponge"
+ },
+ {
+  "title": "RiverVision",
+  "tagline": "RiverVision is a browser-first, human-reviewed stream photo assessment site. Works on both desktop and mobile",
+  "url": "https://devpost.com/software/rivervision"
+ },
+ {
+  "title": "Aegis Aqua: AI-Assisted Stream Monitoring Rover",
+  "tagline": "A rugged rover that uses visual inspection, environmental sensors, and human-verified AI to monitor urban streams and identify potential ecosystem risks.",
+  "url": "https://devpost.com/software/aegis-search-rescue-rover"
+ },
+ {
+  "title": "DrainWatch: Stormwater & Litter Watch",
+  "tagline": "A community action platform for residents and volunteers to report drainage and litter issues, confirm conditions, follow progress, and receive weather-aware guidance for healthier urban waterways.",
+  "url": "https://devpost.com/software/drainwatch-stormwater-litter-watch"
+ },
+ {
+  "title": "StreamVoice",
+  "tagline": "Your stream, Explained out loud",
+  "url": "https://devpost.com/software/streamvoice"
+ },
+ {
+  "title": "WatchDOG",
+  "tagline": "Walkers and their dogs become an early-warning network for urban streams: forecasts + 30-second reports → human-approved advisories → FHIR hand-off to health services.",
+  "url": "https://devpost.com/software/watchdog-2na40w"
+ },
+ {
+  "title": "OneaqualHealth UI and UX improvement - Ripple",
+  "tagline": "Ripple is a friendly, multilingual water-monitoring app that guides people through simple stream observations, works offline, and turns a few minutes of citizen input into useful data for researchers.",
+  "url": "https://devpost.com/software/oneaqualhealth-ui-and-ux-improvement-ripple"
+ },
+ {
+  "title": "StreamCheck",
+  "tagline": "An AI second pair of eyes for citizen stream assessments. It explains what it sees; the citizen decides.",
+  "url": "https://devpost.com/software/streamcheck-3gvcb2"
+ },
+ {
+  "title": "Aquaverse",
+  "tagline": "a living, pixel-art urban stream that shows how the health of the water, the wildlife and the people nearby rise and fall together.",
+  "url": "https://devpost.com/software/aquaverse-eap8nx"
+ },
+ {
+  "title": "CLINICASE",
+  "tagline": "Elevator pitch: CLINI-CASE safely moves environmental and health data between systems using FHIR, human review, and governed AI—so the format can change, but the meaning does not.",
+  "url": "https://devpost.com/software/clinicase"
+ },
+ {
+  "title": "Baseline-Break",
+  "tagline": "Early warning system that detects when a river stops behaving normally.",
+  "url": "https://devpost.com/software/baseline-break"
+ },
+ {
+  "title": "AquaHealth",
+  "tagline": "https://b9790c1e-a6da-435f-ae43-d728bc92b52c-00-32k87712x76ch.sisko.replit.dev/?nativeBrowserPresentationStyle=fullScreen",
+  "url": "https://devpost.com/software/aquahealth"
+ }
+]
