@@ -80,7 +80,9 @@ pip install -r requirements.txt
 uvicorn engine.api:app --reload      # web/index.html раздаётся на /
 python -m engine.llm                 # проверка ключа: каждая модель вернула JSON
 python -m engine.embed_cluster       # ARI на seed без сети
-python -m engine.generate --n 20     # дописать пул data/pool/fkn2026.json
+python -m engine.generate --n 20     # дописать пул data/pool/fkn2026.json (--inline для :free моделей)
+python -m engine.renormalize         # переписать механики пула одной util-моделью
+python -m engine.calibrate           # порог по data/gold/pairs.csv + согласие судьи
 ```
 Torch 2.14 + sentence-transformers 6.2 ставятся на Python 3.14 (CPU).
 Пока нет `data/pool/fkn2026.json`, API отдаёт seed.

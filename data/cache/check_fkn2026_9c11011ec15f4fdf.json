@@ -1,0 +1,57 @@
+{
+ "idea": {
+  "title": "Спойлер",
+  "mechanic": "Фото с подписью → сверка теней с положением солнца и архивом погоды → вывод о противоречиях."
+ },
+ "n_sims": 42,
+ "collision_sims": 0,
+ "collision_rate": 0.0,
+ "cluster": null,
+ "clones": [
+  {
+   "sim_id": "s003",
+   "model": "dots-studio/dots-3-note-preview:free",
+   "title": "AR-Путеводитель по Эмоциям",
+   "mechanic": "Камера → ИИ анализирует выражение лица и геолокацию → AR-подсказки на экране.",
+   "similarity": 0.303,
+   "match": false
+  },
+  {
+   "sim_id": "s052",
+   "model": "dots-studio/dots-3-note-preview:free",
+   "title": "Эмоциональный Второй Мозг",
+   "mechanic": "Голос/текст → ИИ анализирует эмоции и извлекает факты → Связи между событиями и рекомендации.",
+   "similarity": 0.27,
+   "match": false
+  },
+  {
+   "sim_id": "s015",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "title": "Provenance Keystroke",
+   "mechanic": "Нажатия и фокус окон → подписывает эпокхами → неотрекаемый лог творчества",
+   "similarity": 0.255,
+   "match": false
+  },
+  {
+   "sim_id": "s027",
+   "model": "dots-studio/dots-3-note-preview:free",
+   "title": "ИИ-Архивариус",
+   "mechanic": "Загрузка личных данных (фото, дневники) → ИИ-модель создает эмбеддинги и суммаризацию → Возможность поиска и диалога с архивом.",
+   "similarity": 0.229,
+   "match": false
+  },
+  {
+   "sim_id": "s021",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "title": "Аптечка в Кармане",
+   "mechanic": "Фото коробок → OCR + LLM извлекает режим → Календарь с алертами и проверкой взаимодействий",
+   "similarity": 0.222,
+   "match": false
+  }
+ ],
+ "name_matches": [],
+ "twists": [],
+ "threshold": 0.38,
+ "judged": true,
+ "cached": false
+}

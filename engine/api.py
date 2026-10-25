@@ -26,7 +26,11 @@ THRESHOLD_FILE = CACHE / "threshold.json"  # пишет python -m engine.calibra
 N_CLONES = 5
 LABEL_TOP = 20     # сколько крупнейших кластеров подписывать через LLM
 TWIST_CLUSTERS = 8  # сколько кластеров показывать генератору поворота
-JUDGE_TOP = int(os.getenv("JUDGE_TOP", "40"))  # сколько ближайших отдавать судье
+JUDGE_TOP = int(os.getenv("JUDGE_TOP", "20"))  # сколько ближайших отдавать судье (40 — уже ~50 с с поворотом)
+TWIST_JUDGE_TOP = 12  # перепроверка каждого поворота
+# почти дословные механики — клон без судьи: строгий судья их иногда отбрасывает
+# (pairs.csv #58), а на косинусе ≥ 0.6 ложных клонов в разметке нет
+SURE_SIM = float(os.getenv("SURE_SIM", "0.6"))
 
 
 def threshold() -> float:
@@ -59,14 +63,14 @@ class Space:
     def sims(self, mechanics: list[str]) -> np.ndarray:
         return ec.center(ec.embed(mechanics), self.mean) @ self.emb.T
 
-    async def matches(self, mechanic: str, s: np.ndarray, online: bool) -> set[int]:
+    async def matches(self, mechanic: str, s: np.ndarray, online: bool, top: int = 0) -> set[int]:
         """Номера идей пула, которые «та же идея». Онлайн — судья по JUDGE_TOP ближайшим,
         офлайн — порог по косинусу."""
         if not online or JUDGE_TOP == 0:
             return {int(j) for j in np.nonzero(s >= threshold())[0]}
-        cand = [int(j) for j in np.argsort(-s)[:JUDGE_TOP]]
+        cand = [int(j) for j in np.argsort(-s)[:top or JUDGE_TOP]]
         verdicts = await judge.many(mechanic, [self.ideas[j]["mechanic"] for j in cand])
-        return {j for j, v in zip(cand, verdicts) if v == "да"}
+        return {j for j, v in zip(cand, verdicts) if v == "да"} | {int(j) for j in np.nonzero(s >= SURE_SIM)[0]}
 
     def n_sims_of(self, idx: set[int]) -> int:
         """Сколько разных соседей среди этих идей (инвариант 1)."""
@@ -97,7 +101,7 @@ async def space(brief: str) -> Space:
         else:
             labels = await asyncio.to_thread(ec.cluster, emb)
             xy = await asyncio.to_thread(ec.project2d, emb)
-            cluster_label = await ec.label_clusters(ideas, labels, LABEL_TOP)
+            cluster_label = await ec.label_clusters(ideas, labels, LABEL_TOP, emb)
             CACHE.mkdir(parents=True, exist_ok=True)
             map_path.write_text(json.dumps({"labels": labels.tolist(), "xy": xy.round(4).tolist(),
                                             "cluster_label": cluster_label}, ensure_ascii=False), encoding="utf-8")
@@ -184,7 +188,7 @@ async def check(req: CheckIn):
         return {**json.loads(path.read_text(encoding="utf-8")), "cached": True}
 
     sp = await space(req.brief)
-    online = bool(llm.UTIL_MODEL and os.getenv("LLM_API_KEY"))
+    online = llm.available()
     idea = _fallback_idea(req.idea)
     if online:
         try:
@@ -224,7 +228,7 @@ async def check(req: CheckIn):
         if cand:
             st = await asyncio.to_thread(sp.sims, [c["mechanic"] for c in cand])
             try:
-                rechecked = await asyncio.gather(*(sp.matches(c["mechanic"], row, True) for c, row in zip(cand, st)))
+                rechecked = await asyncio.gather(*(sp.matches(c["mechanic"], row, True, TWIST_JUDGE_TOP) for c, row in zip(cand, st)))
             except Exception:  # noqa: BLE001 — без перепроверки поворот не показываем (инвариант 4)
                 rechecked = []
             for c, h in zip(cand, rechecked):

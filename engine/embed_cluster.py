@@ -73,14 +73,19 @@ def project2d(emb: np.ndarray) -> np.ndarray:
     return (xy - xy.mean(0)) / (xy.std(0) + 1e-9)
 
 
-async def label_clusters(ideas: list[dict], labels: np.ndarray, top: int) -> dict[int, str]:
-    """Подписи для `top` крупнейших кластеров через util-модель; без ключа — механика первой идеи."""
-    members = defaultdict(list)
-    for idea, c in zip(ideas, labels):
+async def label_clusters(ideas: list[dict], labels: np.ndarray, top: int, emb: np.ndarray) -> dict[int, str]:
+    """Подписи для `top` крупнейших кластеров через util-модель; без сети — механика
+    самой типичной идеи кластера (ближайшей к его центру)."""
+    members, rows = defaultdict(list), defaultdict(list)
+    for n, (idea, c) in enumerate(zip(ideas, labels)):
         members[int(c)].append(idea["mechanic"])
+        rows[int(c)].append(n)
     biggest = sorted(members, key=lambda c: -len(members[c]))[:top]
-    out = {c: m[0] for c, m in members.items()}
-    if not llm.UTIL_MODEL or not os.getenv("LLM_API_KEY"):
+    out = {}
+    for c, idx in rows.items():
+        centre = emb[idx].mean(0)
+        out[c] = ideas[idx[int(np.argmax(emb[idx] @ centre))]]["mechanic"]
+    if not llm.available():
         return out
 
     # один запрос на все кластеры: дешевле и не ест лимит бесплатных моделей

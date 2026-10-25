@@ -8,6 +8,7 @@ import json
 import os
 import random
 import re
+import time
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -18,10 +19,11 @@ load_dotenv(ROOT / ".env")
 
 MODELS = [m.strip() for m in os.getenv("LLM_MODELS", "").split(",") if m.strip()]
 UTIL_MODEL = os.getenv("LLM_UTIL_MODEL", "").strip() or (MODELS[0] if MODELS else "")
-CONCURRENCY = int(os.getenv("LLM_CONCURRENCY", "12"))
+CONCURRENCY = int(os.getenv("LLM_CONCURRENCY", "20"))
 RETRIES = int(os.getenv("LLM_RETRIES", "4"))  # на бесплатных моделях повтор ест дневной лимит
 
 _client: AsyncOpenAI | None = None
+_down_until = 0.0  # после 401/402/403 не дёргаем API: ответ всё равно будет отказом
 _sems: dict[int, asyncio.Semaphore] = {}  # семафор на event loop: asyncio.run можно звать много раз
 
 
@@ -33,6 +35,11 @@ def client() -> AsyncOpenAI:
         _client = AsyncOpenAI(base_url=os.getenv("LLM_BASE_URL"), api_key=os.getenv("LLM_API_KEY"),
                               timeout=90, max_retries=0)
     return _client
+
+
+def available() -> bool:
+    """Есть ключ, util-модель и провайдер недавно не отказал по деньгам/доступу."""
+    return bool(os.getenv("LLM_API_KEY") and UTIL_MODEL) and time.time() > _down_until
 
 
 def _sem() -> asyncio.Semaphore:
@@ -50,17 +57,31 @@ def prompt(name: str, **kw) -> str:
     return text
 
 
-async def chat(model: str, messages: list[dict], temperature: float = 1.0, max_tokens: int = 2000) -> str:
+async def chat(model: str, messages: list[dict], temperature: float = 1.0, max_tokens: int = 2000,
+               reasoning: str | None = None) -> str:
+    """reasoning: None — util-модели думать запрещаем (Haiku 5.5 иначе тратит весь max_tokens
+    на рассуждение и content пустой), остальным по умолчанию провайдера; "low"/"medium" — явно."""
+    global _down_until
+    if reasoning:
+        extra = {"reasoning": {"effort": reasoning}}
+    else:
+        extra = {"reasoning": {"enabled": False}} if model == UTIL_MODEL else None
     for attempt in range(RETRIES + 1):  # первая попытка + RETRIES повторов
         try:
             async with _sem():
                 r = await client().chat.completions.create(
-                    model=model, messages=messages, temperature=temperature, max_tokens=max_tokens)
-            text = (r.choices[0].message.content or "").strip() if r.choices else ""
+                    model=model, messages=messages, temperature=temperature, max_tokens=max_tokens,
+                    extra_body=extra)
+            choice = r.choices[0] if r.choices else None
+            text = (choice.message.content or "").strip() if choice else ""
             if text:
                 return text
+            if choice and choice.finish_reason == "length":
+                raise RuntimeError(f"{model}: ответ упёрся в max_tokens={max_tokens}")  # повтор не поможет
             err: Exception = RuntimeError(f"{model}: пустой ответ")
         except APIStatusError as e:
+            if e.status_code in (401, 402, 403):
+                _down_until = time.time() + 120
             if e.status_code != 429 and e.status_code < 500:
                 raise
             err = e

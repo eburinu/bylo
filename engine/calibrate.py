@@ -39,9 +39,11 @@ async def main(brief: str):
         print(f"  косинус у «{name}»: {np.round(np.sort(s[lab == name]), 2)}")
     # для порога «да» и «частично» вместе: «да» всего ~6 штук, и F1 по ним выбирает одну
     # высокую точку (0.72), офлайн-режим тогда не видит даже явных клонов
+    # Ложный клон на демо хуже пропущенного: берём самый точный порог, который ещё
+    # ловит треть настоящих совпадений (по F1 выходил 0.23 и «пицца = RAG по чату»).
     y_emb = lab != "нет"
-    best = max((f1(s >= t, y_emb), t) for t in np.arange(0.0, 0.9, 0.01))
-    (bf, bp, br), bt = best
+    scored = [(f1(s >= t, y_emb), t) for t in np.arange(0.0, 0.9, 0.01)]
+    (bf, bp, br), bt = max(((m, t) for m, t in scored if m[2] >= 1 / 3), key=lambda x: (x[0][1], -x[1]))
     print(f"эмбеддинги (да+частично): порог {bt:.2f}  F1={bf:.2f} P={bp:.2f} R={br:.2f}")
     THRESHOLD_FILE.parent.mkdir(parents=True, exist_ok=True)
     THRESHOLD_FILE.write_text(json.dumps({"threshold": round(float(bt), 2), "f1": round(float(bf), 3),
