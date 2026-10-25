@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Было</title>
+<!-- Без внешних библиотек и шрифтов: демо не зависит от сети (инвариант 5) -->
+<style>
+  :root {
+    --bg: #faf9f6; --card: #ffffff; --ink: #1c1b19; --muted: #6b6860; --line: #e4e1da;
+    --accent: #3b5bdb; --ok: #2b8a3e; --warn: #c27c0e; --bad: #c92a2a; --dot: #b8b4aa;
+    --shadow: 0 1px 2px rgb(0 0 0 / .06), 0 4px 16px rgb(0 0 0 / .04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161614; --card: #201f1d; --ink: #ecebe6; --muted: #9c998f; --line: #34332f;
+      --accent: #7b94ff; --ok: #51cf66; --warn: #fcc419; --bad: #ff6b6b; --dot: #5c5a54;
+      --shadow: none;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161614; --card: #201f1d; --ink: #ecebe6; --muted: #9c998f; --line: #34332f;
+    --accent: #7b94ff; --ok: #51cf66; --warn: #fcc419; --bad: #ff6b6b; --dot: #5c5a54;
+    --shadow: none;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 820px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  h1 { font-size: 32px; margin: 0; letter-spacing: -.02em; }
+  .tagline { color: var(--muted); margin: 0 0 20px; }
+  .badge { font-size: 12px; padding: 2px 8px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); }
+  .badge.mock { border-color: var(--warn); color: var(--warn); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px;
+          box-shadow: var(--shadow); margin-bottom: 16px; }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 12px; font-weight: 600; }
+  textarea { width: 100%; min-height: 96px; resize: vertical; font: inherit; color: inherit; background: transparent;
+             border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+  textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+  button { font: inherit; border: 0; border-radius: 10px; padding: 10px 18px; cursor: pointer;
+           background: var(--accent); color: #fff; font-weight: 600; }
+  button:disabled { opacity: .5; cursor: progress; }
+  .chip { background: transparent; color: var(--muted); border: 1px solid var(--line); font-weight: 400;
+          padding: 4px 10px; font-size: 14px; border-radius: 99px; }
+  .chip:hover { color: var(--ink); border-color: var(--muted); }
+  .hint { color: var(--muted); font-size: 14px; }
+  .error { color: var(--bad); }
+
+  /* вердикт */
+  .big { font-size: 22px; line-height: 1.3; margin: 0 0 6px; }
+  .big b { font-size: 44px; letter-spacing: -.03em; display: inline-block; margin-right: 4px; }
+  .lvl-0 b { color: var(--ok); } .lvl-1 b { color: var(--warn); } .lvl-2 b { color: var(--bad); }
+  .meter { height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; margin: 10px 0 4px; }
+  .meter i { display: block; height: 100%; background: currentColor; border-radius: 99px; }
+  .mech { font-size: 14px; color: var(--muted); }
+  .mech q { color: var(--ink); quotes: "«" "»"; }
+  .section { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .section h3 { font-size: 15px; margin: 0 0 8px; }
+  ul.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  ul.list li { display: grid; gap: 2px; }
+  .t { font-weight: 600; }
+  .sub { font-size: 14px; color: var(--muted); }
+  .tag { font-size: 12px; font-weight: 600; padding: 1px 7px; border-radius: 99px; margin-left: 6px; vertical-align: 1px; }
+  .tag.clone { background: var(--bad); color: #fff; }
+  .tag.near { border: 1px solid var(--line); color: var(--muted); font-weight: 400; }
+  .simbar { height: 4px; border-radius: 99px; background: var(--line); max-width: 220px; overflow: hidden; }
+  .simbar i { display: block; height: 100%; background: var(--muted); }
+  .simbar.hit i { background: var(--bad); }
+
+  /* «считаю…» */
+  .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--line);
+             border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; vertical-align: -2px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* карта */
+  .mapwrap { position: relative; }
+  svg.map { width: 100%; height: auto; display: block; touch-action: manipulation; }
+  svg.map circle { cursor: pointer; transition: r .15s; }
+  svg.map circle.dim { opacity: .25; }
+  svg.map circle.hit { stroke: var(--ink); stroke-width: 2; }
+  .tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 13px;
+         padding: 6px 9px; border-radius: 8px; max-width: 260px; display: none; z-index: 2; }
+  .clusters { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+  .clusters li { display: grid; grid-template-columns: 12px 1fr auto; gap: 8px; align-items: center; cursor: pointer;
+                 font-size: 14px; }
+  .clusters li .sw { width: 12px; height: 12px; border-radius: 50%; }
+  .clusters li .bar { grid-column: 2 / 4; height: 4px; background: var(--line); border-radius: 99px; overflow: hidden; }
+  .clusters li .bar i { display: block; height: 100%; }
+  .clusters li.on { font-weight: 600; }
+  .lbl { overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .more { background: transparent; color: var(--accent); padding: 6px 0; font-weight: 400; }
+  footer { color: var(--muted); font-size: 13px; margin-top: 24px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Было</h1>
+    <span class="badge" id="briefBadge">fkn2026</span>
+    <span class="badge mock" id="mockBadge" hidden title="API не ответил — показываю seed и грубое сравнение по словам">демо без сервера</span>
+  </header>
+  <p class="tagline">Антиплагиат для идей, которых ещё нет: сколько ИИ-«соседей» с тем же заданием придумали бы то же, что и вы.</p>
+
+  <section class="card">
+    <h2>Ваша идея</h2>
+    <textarea id="idea" placeholder="Название и суть в паре предложений: что на входе, что делает, что на выходе"></textarea>
+    <div class="row">
+      <button id="go">Проверить</button>
+      <span class="hint" id="status"></span>
+    </div>
+    <div class="row" id="examples"></div>
+  </section>
+
+  <section class="card" id="verdict" hidden></section>
+
+  <section class="card">
+    <h2>Карта идей соседей</h2>
+    <p class="hint" id="mapHint">Загружаю карту…</p>
+    <div class="mapwrap">
+      <svg class="map" id="map" role="img" aria-label="Карта идей: точки — идеи соседей, цвет — кластер"></svg>
+      <div class="tip" id="tip"></div>
+    </div>
+    <ul class="clusters" id="clusters"></ul>
+    <button class="more" id="moreClusters" hidden>Показать все кластеры</button>
+  </section>
+
+  <footer>Похожесть считаем по механике идеи, а не по названию. Порог «та же идея» — по ручной разметке пар.</footer>
+</main>
+
+<script src="mock.js"></script>
+<script>
+const params = new URLSearchParams(location.search);
+const BRIEF = params.get("brief") || "fkn2026";
+const EXAMPLES = [
+  "Алиби: по фото и подписи сверяем тени с положением солнца и архивом погоды, выдаём список противоречий",
+  "Агент проходит README проекта в чистом Docker и присылает PR с исправленной инструкцией",
+  "Второй мозг для семьи: бот собирает рецепты, чеки и напоминания из чата и отвечает на вопросы",
+];
+const PALETTE = ["#3b5bdb", "#e8590c", "#2b8a3e", "#ae3ec9", "#c92a2a", "#1098ad", "#f08c00", "#5c940d"];
+const TOP_COLORED = PALETTE.length;
+const CLUSTERS_SHOWN = 8;
+
+const $ = id => document.getElementById(id);
+let MAP = null, MOCK = false, selected = null, hits = new Set();
+
+function plural(n, one, few, many) {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+  return many;
+}
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+}
+const per100 = rate => Math.round(rate * 100);
+const pointKey = p => `${p.sim_id}\u0000${p.title}`;
+
+function colorOf(cluster) {
+  const i = MAP ? MAP.clusters.findIndex(c => c.id === cluster) : -1;
+  return i >= 0 && i < TOP_COLORED ? PALETTE[i] : "var(--dot)";
+}
+
+/* ---------- карта ---------- */
+
+async function loadMap() {
+  try {
+    const r = await fetch(`/api/map?brief=${encodeURIComponent(BRIEF)}`);
+    if (!r.ok) throw new Error(await r.text());
+    MAP = await r.json();
+  } catch (e) {
+    if (!window.MOCK_MAP) { $("mapHint").textContent = "Карта не загрузилась: " + e.message; $("mapHint").classList.add("error"); return; }
+    MAP = window.MOCK_MAP; MOCK = true; $("mockBadge").hidden = false;
+  }
+  $("mapHint").textContent = `${MAP.points.length} ${plural(MAP.points.length, "идея", "идеи", "идей")} от ${MAP.n_sims} ${plural(MAP.n_sims, "соседа", "соседей", "соседей")}. Цвет — кластер, крупнейшие сверху списка.`;
+  drawMap(); drawClusters();
+}
+
+function drawMap() {
+  const svg = $("map"), W = 800, H = window.innerWidth < 520 ? 720 : 440, pad = 18;
+  const xs = MAP.points.map(p => p.x), ys = MAP.points.map(p => p.y);
+  const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+  const sx = x => pad + (x - x0) / ((x1 - x0) || 1) * (W - 2 * pad);
+  const sy = y => H - pad - (y - y0) / ((y1 - y0) || 1) * (H - 2 * pad);
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const r = window.innerWidth < 520 ? 9 : 6;
+  // серые снизу, подсвеченные сверху
+  const order = [...MAP.points].sort((a, b) => (hits.has(pointKey(a)) - hits.has(pointKey(b))) ||
+    ((colorOf(a.cluster) === "var(--dot)") ? -1 : 1));
+  svg.innerHTML = order.map(p => {
+    const hit = hits.has(pointKey(p));
+    const dim = (selected !== null && p.cluster !== selected) || (hits.size && !hit && selected === null);
+    return `<circle cx="${sx(p.x).toFixed(1)}" cy="${sy(p.y).toFixed(1)}" r="${hit ? r + 3 : r}" fill="${colorOf(p.cluster)}"
+      class="${dim ? "dim" : ""} ${hit ? "hit" : ""}" data-i="${MAP.points.indexOf(p)}"></circle>`;
+  }).join("");
+}
+
+function showTip(ev) {
+  const c = ev.target.closest("circle"), tip = $("tip");
+  if (!c) { tip.style.display = "none"; return; }
+  const p = MAP.points[+c.dataset.i];
+  const cl = MAP.clusters.find(k => k.id === p.cluster);
+  tip.innerHTML = `<b>${esc(p.title)}</b><br>${esc(cl?.label || "")}<br><span style="opacity:.7">сосед ${esc(p.sim_id)}</span>`;
+  const box = $("map").parentElement.getBoundingClientRect(), cb = c.getBoundingClientRect();
+  tip.style.display = "block";
+  tip.style.left = Math.min(cb.left - box.left + 12, box.width - tip.offsetWidth) + "px";
+  tip.style.top = (cb.top - box.top - tip.offsetHeight - 6) + "px";
+}
+$("map").addEventListener("mousemove", showTip);
+$("map").addEventListener("click", showTip);
+$("map").addEventListener("mouseleave", () => $("tip").style.display = "none");
+
+function drawClusters(all = false) {
+  const list = all ? MAP.clusters : MAP.clusters.slice(0, CLUSTERS_SHOWN);
+  $("clusters").innerHTML = list.map(c => `
+    <li data-id="${c.id}" class="${selected === c.id ? "on" : ""}">
+      <span class="sw" style="background:${colorOf(c.id)}"></span>
+      <span class="lbl">${esc(c.label || "кластер " + c.id)}</span>
+      <span class="sub">${c.size_sims} из ${MAP.n_sims}</span>
+      <span class="bar"><i style="width:${(c.share * 100).toFixed(1)}%;background:${colorOf(c.id)}"></i></span>
+    </li>`).join("");
+  $("moreClusters").hidden = all || MAP.clusters.length <= CLUSTERS_SHOWN;
+}
+$("clusters").addEventListener("click", ev => {
+  const li = ev.target.closest("li"); if (!li) return;
+  const id = +li.dataset.id;
+  selected = selected === id ? null : id;
+  drawMap(); drawClusters(!$("moreClusters").hidden ? false : true);
+});
+$("moreClusters").addEventListener("click", () => drawClusters(true));
+
+/* ---------- проверка идеи ---------- */
+
+async function check() {
+  const text = $("idea").value.trim();
+  if (!text) { $("idea").focus(); return; }
+  const btn = $("go"), status = $("status"), t0 = Date.now();
+  btn.disabled = true;
+  const tick = () => { status.innerHTML = `<span class="spinner"></span> считаю… ${Math.round((Date.now() - t0) / 1000)} с`; };
+  tick(); const timer = setInterval(tick, 1000);
+  try {
+    let res;
+    if (MOCK) res = mockCheck(text);
+    else {
+      const r = await fetch("/api/check", {method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({brief: BRIEF, idea: text})});
+      if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || r.statusText);
+      res = await r.json();
+    }
+    status.textContent = res.cached ? "готово · из кэша" : `готово за ${Math.round((Date.now() - t0) / 1000)} с`;
+    renderVerdict(res);
+  } catch (e) {
+    status.innerHTML = `<span class="error">Не получилось: ${esc(e.message)}</span>`;
+  } finally {
+    clearInterval(timer); btn.disabled = false;
+  }
+}
+$("go").addEventListener("click", check);
+$("idea").addEventListener("keydown", e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) check(); });
+
+function renderVerdict(r) {
+  const n = per100(r.collision_rate);
+  const lvl = r.collision_rate === 0 ? 0 : r.collision_rate < 0.1 ? 1 : 2;
+  const color = ["var(--ok)", "var(--warn)", "var(--bad)"][lvl];
+  const headline = r.collision_sims === 0
+    ? `<b>0</b> — ни один сосед не пришёл к этой идее`
+    : `Такую идею придумали бы <b>${n}</b> ${plural(n, "команда", "команды", "команд")} из 100`;
+  const basis = `${r.collision_sims} из ${r.n_sims} ${plural(r.n_sims, "соседа", "соседей", "соседей")} дали ту же механику`;
+
+  const clones = r.clones.map(c => {
+    const hit = c.similarity >= r.threshold;
+    const w = Math.max(0, Math.min(1, c.similarity / (r.threshold * 2))) * 100;
+    return `<li>
+      <span><span class="t">${esc(c.title)}</span><span class="tag ${hit ? "clone" : "near"}">${hit ? "клон" : "рядом, но другое"}</span></span>
+      <span class="sub">${esc(c.mechanic)}</span>
+      <span class="sub">сосед ${esc(c.sim_id)} · ${esc(c.model)} · похожесть ${c.similarity.toFixed(2)}</span>
+      <span class="simbar ${hit ? "hit" : ""}"><i style="width:${w}%"></i></span>
+    </li>`;
+  }).join("");
+
+  const names = r.name_matches.length
+    ? `<div class="section"><h3>Совпало название</h3><p class="sub" style="margin:0">«${esc(r.idea.title)}» —
+       у ${r.name_matches.length} ${plural(r.name_matches.length, "соседа", "соседей", "соседей")}:
+       ${r.name_matches.map(m => `«${esc(m.title)}»`).join(", ")}</p></div>` : "";
+
+  let twists = "";
+  if (r.twists.length) {
+    twists = `<div class="section"><h3>Поворот, который выводит из толпы</h3><ul class="list">${r.twists.map(t => `
+      <li><span class="t">${esc(t.title)}</span><span class="sub">${esc(t.mechanic)}</span>
+      <span class="sub">перепроверили по пулу: придумали бы ${per100(t.collision_rate)} из 100</span></li>`).join("")}</ul></div>`;
+  } else if (r.collision_sims > 0) {
+    twists = `<div class="section"><p class="sub" style="margin:0">${MOCK ? "Поворот считается только на сервере." :
+      "Поворота нет: сервер без ключа LLM или ни один вариант не прошёл перепроверку по пулу."}</p></div>`;
+  }
+
+  const v = $("verdict");
+  v.hidden = false;
+  v.innerHTML = `
+    <h2>Вердикт${MOCK ? " · демо без сервера, сравнение по словам" : ""}</h2>
+    <p class="big lvl-${lvl}">${headline}</p>
+    <div class="meter" style="color:${color}"><i style="width:${Math.max(2, r.collision_rate * 100)}%"></i></div>
+    <p class="sub" style="margin:0">${basis}${r.cluster ? ` · кластер «${esc(r.cluster.label)}»` : ""}</p>
+    <p class="mech">Мы поняли идею так: <b>${esc(r.idea.title)}</b> — <q>${esc(r.idea.mechanic)}</q></p>
+    <div class="section"><h3>Ближайшие соседи</h3><ul class="list">${clones}</ul></div>
+    ${names}${twists}`;
+
+  // подсветить на карте найденных клонов
+  hits = new Set(r.clones.filter(c => c.similarity >= r.threshold).map(pointKey));
+  selected = null;
+  if (MAP) { drawMap(); drawClusters(); }
+  v.scrollIntoView({behavior: "smooth", block: "start"});
+}
+
+/* ---------- демо без сервера: грубое сравнение по словам, только чтобы показать интерфейс ---------- */
+
+function words(s) {
+  return new Set(s.toLowerCase().replace(/ё/g, "е").split(/[^a-zа-я0-9]+/).filter(w => w.length > 3).map(w => w.slice(0, 5)));
+}
+function mockCheck(text) {
+  const ideas = window.MOCK_IDEAS, mine = words(text), thr = 0.12;
+  const sim = i => { const o = words(i.title + " " + i.mechanic); let k = 0; mine.forEach(w => k += o.has(w)); return k / (mine.size + o.size - k || 1); };
+  const scored = ideas.map(i => ({...i, similarity: +sim(i).toFixed(3)})).sort((a, b) => b.similarity - a.similarity);
+  const hitSims = new Set(scored.filter(i => i.similarity >= thr).map(i => i.sim_id));
+  const seen = new Set(), clones = [];
+  for (const i of scored) { if (seen.has(i.sim_id)) continue; seen.add(i.sim_id); clones.push(i); if (clones.length === 5) break; }
+  const top = scored[0], cl = MAP.clusters.find(c => c.id === top.cluster);
+  const title = text.split(/[.:—\n]/)[0].slice(0, 40).trim();
+  return {
+    idea: {title, mechanic: text}, n_sims: MAP.n_sims, collision_sims: hitSims.size,
+    collision_rate: +(hitSims.size / MAP.n_sims).toFixed(3),
+    cluster: hitSims.size ? {id: cl.id, label: cl.label, size_sims: cl.size_sims} : null,
+    clones: clones.map(({sim_id, model, title, mechanic, similarity}) => ({sim_id, model, title, mechanic, similarity})),
+    name_matches: ideas.filter(i => i.title.toLowerCase() === title.toLowerCase()).map(({sim_id, title}) => ({sim_id, title})),
+    twists: [], threshold: thr, cached: false,
+  };
+}
+
+$("briefBadge").textContent = BRIEF;
+$("examples").innerHTML = `<span class="hint">Например:</span>` +
+  EXAMPLES.map((e, i) => `<button class="chip" data-i="${i}">${esc(e.split(":")[0].slice(0, 32))}${e.includes(":") ? "" : "…"}</button>`).join("");
+$("examples").addEventListener("click", ev => {
+  const b = ev.target.closest(".chip"); if (!b) return;
+  $("idea").value = EXAMPLES[+b.dataset.i]; check();
+});
+loadMap();
+</script>
+</body>
+</html>
