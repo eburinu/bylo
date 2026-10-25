@@ -222,6 +222,13 @@ function plural(n, one, few, many) {
   if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
   return many;
 }
+// механика иногда начинается с того же названия («Проверка подлинности: …») — не повторяем его
+function dropTitle(mechanic, title) {
+  const m = (mechanic || "").trim(), t = (title || "").trim();
+  if (!t || !m.toLowerCase().startsWith(t.toLowerCase())) return m;
+  const rest = m.slice(t.length).replace(/^[\s:—–-]+/, "");
+  return rest ? rest[0].toUpperCase() + rest.slice(1) : m;
+}
 function esc(s) {
   return String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
 }
@@ -371,7 +378,7 @@ function renderVerdict(r) {
       <span class="muted">${r.collision_sims} из ${r.n_sims} ${plural(r.n_sims, "соседа", "соседей", "соседей")} дали ту же механику${r.n_sims < 100 ? " — пересчитано на 100" : ""}</span>
       ${r.cluster ? `<span>Кластер: <q>${esc(r.cluster.label)}</q> — там ${r.cluster.size_sims} из ${r.n_sims}</span>` : ""}
     </div>
-    <p class="why">Мы поняли идею так: <b>${esc(r.idea.title)}</b> — ${esc(r.idea.mechanic)}</p>`;
+    <p class="why">Мы поняли идею так: <b>${esc(r.idea.title)}</b> — ${esc(dropTitle(r.idea.mechanic, r.idea.title))}</p>`;
 
   const clones = r.clones.map(c => {
     const hit = isClone(c, r);
