@@ -28,14 +28,15 @@ async def run(brief: str):
     await api.space(brief)
     print(f"карта готова за {time.time() - t:.0f} с")
 
-    async def one(idea):
-        api._cache_path(brief, idea).unlink(missing_ok=True)
+    async def one(idea, twists=True):
+        api._cache_path(brief, idea, twists).unlink(missing_ok=True)
         t = time.time()
-        r = await api.check(api.CheckIn(brief=brief, idea=idea))
+        r = await api.check(api.CheckIn(brief=brief, idea=idea, twists=twists))
         print(f"{time.time() - t:5.1f}s  {r['collision_sims']:3}/{r['n_sims']} judged={r['judged']} "
               f"повороты={len(r['twists'])}  {idea[:50]}")
 
-    await asyncio.gather(*(one(i) for i in DEMO))
+    for i in DEMO:  # по одной: параллельно 18 проверок падали по памяти на эмбеддингах
+        await one(i)
 
 
 if __name__ == "__main__":
